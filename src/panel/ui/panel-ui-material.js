@@ -11,15 +11,20 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
     //		Comments
     //////////////////////////////////////////////////////////////////////////////////
     var editor = PanelWin3js.editor;
-    
+
     var subMaterialPanel = null;
 
     if (faceMaterialIndex === -1) {
         var container = new UI.Panel()
     } else {
-        vcontainer = UI.CollapsiblePanelHelper.createContainer('Material ' + 
-            (faceMaterialIndex + 1), 'sidebarMaterial' + (faceMaterialIndex === -1 ? 
-                '' : '_' + faceMaterialIndex, true))
+        vcontainer = UI.CollapsiblePanelHelper.createContainer(
+            'Material ' + (faceMaterialIndex + 1),
+            'sidebarMaterial' +
+            (faceMaterialIndex === -1 ?
+                '' : '_' + faceMaterialIndex,
+                true
+            )
+        )
     }
     container.setDisplay('none');
 
@@ -95,10 +100,10 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
             // var url = 'http://threejs.org/docs/#Reference/Objects/Mesh'
             var url = typeToUrl(editor.selected.material.className);
             PanelWin3js.plainFunction(function (url) {
-                
+
             }, [url]);
 
-            
+
 
             function typeToUrl(sniffType) {
                 var url = 'http://threejs.org/docs/#Reference/Materials/' + sniffType;
@@ -118,7 +123,7 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
 
     function onPopupMenuChange(value) {
         var injectFunction = PanelWin3js.functionOnObject3d;
-        
+
 
         if (value === 'createMap') {
             injectFunction(function (object3d, textureType, faceMaterialIndex) {
