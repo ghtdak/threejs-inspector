@@ -180,7 +180,7 @@ UI.FoldableSelect.prototype.getStateJson = function () {
 UI.FoldableSelect.prototype.setStateJson = function (state) {
     var foldableSelect = this;
     // honor state.unfoldedIndexes
-    var foldableSelect = this;
+    foldableSelect = this;
     foldableSelect.optionElements.forEach(function (optionElement, index) {
         var isFoldable = optionElement.classList.contains('foldable');
         if (isFoldable === false)    return;
@@ -330,7 +330,7 @@ UI.FoldableSelect.prototype.setValue = function (value) {
             element.classList.add('active');
 
             // scroll into view
-            var element = element.querySelector('.optionValue');
+            element = element.querySelector('.optionValue');
             var y = element.offsetTop - this.dom.offsetTop;
             var bottomY = y + element.offsetHeight;
             var minScroll = bottomY - this.dom.offsetHeight;

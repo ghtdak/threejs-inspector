@@ -10,8 +10,8 @@ var RafThrottler = function () {
     this.postFunction = null;
     this.fps = -1;	// -1 is no throttle, === 0 for still, > 0 is number of frame per second
 
-    // 
-    requestAnimationFrame = function (callback) {
+    //
+    var requestAnimationFrame = function (callback) {
         if (_this.fps === -1) {
             originalFct(function (timestamp) {
                 onAnimationFrame(callback, timestamp)
@@ -38,7 +38,7 @@ var RafThrottler = function () {
         requestAnimationFrame = originalFct
     };
 
-    
+
 
     function onAnimationFrame(callback, timestamp) {
         if (_this.preFunction !== null) {
