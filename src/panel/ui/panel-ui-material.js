@@ -14,10 +14,12 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
 
     var subMaterialPanel = null;
 
+    var container;
+    
     if (faceMaterialIndex === -1) {
-        var container = new UI.Panel()
+        container = new UI.Panel()
     } else {
-        vcontainer = UI.CollapsiblePanelHelper.createContainer(
+        container = UI.CollapsiblePanelHelper.createContainer(
             'Material ' + (faceMaterialIndex + 1),
             'sidebarMaterial' +
             (faceMaterialIndex === -1 ?
@@ -135,8 +137,8 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
             }, ['map', faceMaterialIndex]);
         } else if (value === 'exportInConsole') {
             PanelWin3js.functionOnObject3d(function (object3d, faceMaterialIndex) {
-                window.$material = faceMaterialIndex === -1 ? 
-                    object3d.material : 
+                window.$material = faceMaterialIndex === -1 ?
+                    object3d.material :
                     object3d.material.materials[faceMaterialIndex];
                 console.log('three.js inspector: Material exported as $material');
                 console.dir($material)
