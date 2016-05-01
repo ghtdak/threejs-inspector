@@ -1,459 +1,461 @@
-var PanelWin3js	= PanelWin3js	|| {}
+var PanelWin3js = PanelWin3js || {}
 
 /**
  * Handle panel for object3d
  *
  * @constructor
  */
-PanelWin3js.PanelMaterial	= function(faceMaterialIndex){
+PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
 
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Comments
-	//////////////////////////////////////////////////////////////////////////////////
-	var editor	= PanelWin3js.editor
-	var signals	= editor.signals
-	var subMaterialPanel = null
-	
-	if( faceMaterialIndex === -1 ){
-		var container	= new UI.Panel()
-	}else{
-		var container	= UI.CollapsiblePanelHelper.createContainer('Material '+(faceMaterialIndex+1), 'sidebarMaterial'+(faceMaterialIndex === -1 ? '' : '_'+faceMaterialIndex, true))
-	}
-	container.setDisplay( 'none' );
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	//		signals
-	//////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    //		Comments
+    //////////////////////////////////////////////////////////////////////////////////
+    var editor = PanelWin3js.editor
+    var signals = editor.signals
+    var subMaterialPanel = null
 
-	editor.signals.object3dSelected.add(function( object3d ){
-		if( object3d === null || object3d.material === undefined ){
-			container.setDisplay( 'none' );
-			return
-		}
+    if (faceMaterialIndex === -1) {
+        var container = new UI.Panel()
+    } else {
+        var container = UI.CollapsiblePanelHelper.createContainer('Material ' + (faceMaterialIndex + 1), 'sidebarMaterial' + (faceMaterialIndex === -1 ? '' : '_' + faceMaterialIndex, true))
+    }
+    container.setDisplay('none');
 
-		if( faceMaterialIndex !== -1 ){
-			if( object3d.material.materials === undefined 
-					|| object3d.material.materials[faceMaterialIndex] === undefined ){
-				container.setDisplay( 'none' );
-				return
-			}
-		}
+    //////////////////////////////////////////////////////////////////////////////////
+    //		signals
+    //////////////////////////////////////////////////////////////////////////////////
 
-		container.setDisplay( 'inherit' );
-		updateUI()
-	})
+    editor.signals.object3dSelected.add(function (object3d) {
+        if (object3d === null || object3d.material === undefined) {
+            container.setDisplay('none');
+            return
+        }
 
-	//////////////////////////////////////////////////////////////////////////////////
-	//		select row to change type of material
-	//////////////////////////////////////////////////////////////////////////////////
+        if (faceMaterialIndex !== -1) {
+            if (object3d.material.materials === undefined
+                || object3d.material.materials[faceMaterialIndex] === undefined) {
+                container.setDisplay('none');
+                return
+            }
+        }
 
-	var materialSelectRow	= new UI.SelectRow()
-	materialSelectRow.setLabel('Type')
-	container.add( materialSelectRow );
-	materialSelectRow.value.setOptions({
-		'LineBasicMaterial'	: 'LineBasicMaterial',
-		'LineDashedMaterial'	: 'LineDashedMaterial',
-		'MeshBasicMaterial'	: 'MeshBasicMaterial',
-		'MeshDepthMaterial'	: 'MeshDepthMaterial',
-		'MeshFaceMaterial'	: 'MeshFaceMaterial',
-		'MeshLambertMaterial'	: 'MeshLambertMaterial',
-		'MeshNormalMaterial'	: 'MeshNormalMaterial',
-		'MeshPhongMaterial'	: 'MeshPhongMaterial',
-		'PointCloudMaterial'	: 'PointCloudMaterial',
-		'ShaderMaterial'	: 'ShaderMaterial',
-		'SpriteMaterial'	: 'SpriteMaterial',
-	})
-	materialSelectRow.onChange(function(){
-		var value = materialSelectRow.value.getValue()
-		PanelWin3js.functionOnObject3d(function(object3d, materialType, faceMaterialIndex){
-			// create the material
-			var material = new THREE[ materialType ]();
-			material.needsUpdate = true;
+        container.setDisplay('inherit');
+        updateUI()
+    })
 
-			// update object3d
-			if( faceMaterialIndex === -1 ){
-				object3d.material = material
-			}else{
-				object3d.material.materials[faceMaterialIndex] = material				
-			}
-		}, [value, faceMaterialIndex]);
-	})
-	//////////////////////////////////////////////////////////////////////////////////
-	//		handle help
-	//////////////////////////////////////////////////////////////////////////////////
-	
-	;(function(){
-		var helpButton = new UI.FontAwesomeIcon().setTitle('Open three.js documentation')
-		helpButton.dom.classList.add('fa-info-circle')
-		helpButton.setPosition( 'absolute' ).setLeft( '75px' )
-		materialSelectRow.add(helpButton)
-		helpButton.onClick(function(){
-			console.log('help button clicked', editor.selected.material.className)
-			// var url = 'http://threejs.org/docs/#Reference/Objects/Mesh'
-			var url = typeToUrl(editor.selected.material.className)
-			PanelWin3js.plainFunction(function(url){
-				var win = window.open(url, '_blank');
-			}, [url]);
-			
-			return
-			
-			function typeToUrl(sniffType){
-				var url = 'http://threejs.org/docs/#Reference/Materials/'+sniffType
-				return url
-			}
-		})
-	})()
-	//////////////////////////////////////////////////////////////////////////////////
-	//		popupMenu
-	//////////////////////////////////////////////////////////////////////////////////
-	var popupMenu	= UI.PopupMenuHelper.createSelect({
-		''			: '--- Options ---',
-		'createMap'		: 'Create Map Texture',
-		'exportInConsole'	: 'Export in Console',
-	}, onPopupMenuChange)
-	materialSelectRow.add(popupMenu)
-	
-	function onPopupMenuChange(value){
-		var injectFunction = PanelWin3js.functionOnObject3d
-		var geometry	= editor.selected.geometry
-		
-		if( value === 'createMap' ){
-			injectFunction(function(object3d, textureType, faceMaterialIndex){
-				var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex]
-				// default image
-				var url = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+    //////////////////////////////////////////////////////////////////////////////////
+    //		select row to change type of material
+    //////////////////////////////////////////////////////////////////////////////////
 
-				material[textureType]	= THREE.ImageUtils.loadTexture( url );
-				material.needsUpdate = true;
-			}, ['map', faceMaterialIndex]);		
-		}else if( value === 'exportInConsole' ){
-			PanelWin3js.functionOnObject3d(function(object3d, faceMaterialIndex){
-				var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex]
-				window.$material = material
-				console.log('three.js inspector: Material exported as $material')
-				console.dir($material)
-			}, [faceMaterialIndex])
-			return
-		}else{
-			console.assert(false)
-		}
+    var materialSelectRow = new UI.SelectRow()
+    materialSelectRow.setLabel('Type')
+    container.add(materialSelectRow);
+    materialSelectRow.value.setOptions({
+        'LineBasicMaterial':   'LineBasicMaterial',
+        'LineDashedMaterial':  'LineDashedMaterial',
+        'MeshBasicMaterial':   'MeshBasicMaterial',
+        'MeshDepthMaterial':   'MeshDepthMaterial',
+        'MeshFaceMaterial':    'MeshFaceMaterial',
+        'MeshLambertMaterial': 'MeshLambertMaterial',
+        'MeshNormalMaterial':  'MeshNormalMaterial',
+        'MeshPhongMaterial':   'MeshPhongMaterial',
+        'PointCloudMaterial':  'PointCloudMaterial',
+        'ShaderMaterial':      'ShaderMaterial',
+        'SpriteMaterial':      'SpriteMaterial',
+    })
+    materialSelectRow.onChange(function () {
+        var value = materialSelectRow.value.getValue()
+        PanelWin3js.functionOnObject3d(function (object3d, materialType, faceMaterialIndex) {
+            // create the material
+            var material = new THREE[materialType]();
+            material.needsUpdate = true;
 
-		updateUI()
-	}
-	//////////////////////////////////////////////////////////////////////////////////
-	//		handle tab-material
-	//////////////////////////////////////////////////////////////////////////////////
+            // update object3d
+            if (faceMaterialIndex === -1) {
+                object3d.material = material
+            } else {
+                object3d.material.materials[faceMaterialIndex] = material
+            }
+        }, [value, faceMaterialIndex]);
+    })
+    //////////////////////////////////////////////////////////////////////////////////
+    //		handle help
+    //////////////////////////////////////////////////////////////////////////////////
 
-	var uuidRow	= new UI.InputRow()
-	uuidRow.setLabel('uuid').onChange(update)
-	container.add( uuidRow );
+    ;
+    (function () {
+        var helpButton = new UI.FontAwesomeIcon().setTitle('Open three.js documentation')
+        helpButton.dom.classList.add('fa-info-circle')
+        helpButton.setPosition('absolute').setLeft('75px')
+        materialSelectRow.add(helpButton)
+        helpButton.onClick(function () {
+            console.log('help button clicked', editor.selected.material.className)
+            // var url = 'http://threejs.org/docs/#Reference/Objects/Mesh'
+            var url = typeToUrl(editor.selected.material.className)
+            PanelWin3js.plainFunction(function (url) {
+                var win = window.open(url, '_blank');
+            }, [url]);
 
-	var nameRow	= new UI.InputRow()
-	nameRow.setLabel('Name').onChange(update)
-	container.add( nameRow );
+            return
 
-	var colorRow	= new UI.ColorRow()
-	colorRow.setLabel('Color').onChange(update)
-	container.add( colorRow );
+            function typeToUrl(sniffType) {
+                var url = 'http://threejs.org/docs/#Reference/Materials/' + sniffType
+                return url
+            }
+        })
+    })()
+    //////////////////////////////////////////////////////////////////////////////////
+    //		popupMenu
+    //////////////////////////////////////////////////////////////////////////////////
+    var popupMenu = UI.PopupMenuHelper.createSelect({
+        '':                '--- Options ---',
+        'createMap':       'Create Map Texture',
+        'exportInConsole': 'Export in Console',
+    }, onPopupMenuChange)
+    materialSelectRow.add(popupMenu)
 
-	var emissiveRow	= new UI.ColorRow()
-	emissiveRow.setLabel('Emissive').onChange(update)
-	container.add( emissiveRow );
+    function onPopupMenuChange(value) {
+        var injectFunction = PanelWin3js.functionOnObject3d
+        var geometry = editor.selected.geometry
 
-	var specularRow	= new UI.ColorRow()
-	specularRow.setLabel('Specular').onChange(update)
-	container.add( specularRow );
-	
-	var shininessRow	= new UI.NumberRow()
-	shininessRow.setLabel('Shininess').onChange(update)
-	container.add( shininessRow );
+        if (value === 'createMap') {
+            injectFunction(function (object3d, textureType, faceMaterialIndex) {
+                var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex]
+                // default image
+                var url = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
 
-	var wireframeRow	= new UI.CheckboxRow().setTitle('To enable wireframe')
-	wireframeRow.setLabel('wireframe').onChange(update)
-	container.add( wireframeRow );
+                material[textureType] = THREE.ImageUtils.loadTexture(url);
+                material.needsUpdate = true;
+            }, ['map', faceMaterialIndex]);
+        } else if (value === 'exportInConsole') {
+            PanelWin3js.functionOnObject3d(function (object3d, faceMaterialIndex) {
+                var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex]
+                window.$material = material
+                console.log('three.js inspector: Material exported as $material')
+                console.dir($material)
+            }, [faceMaterialIndex])
+            return
+        } else {
+            console.assert(false)
+        }
 
-	var wireframeLinewidthRow	= new UI.NumberRow()
-	wireframeLinewidthRow.value.setPrecision(0).setStep(10).setRange(0, 128)
-	wireframeLinewidthRow.setLabel('wireframe width').onChange(update)
-	container.add( wireframeLinewidthRow );
+        updateUI()
+    }
 
-	var opacityRow	= new UI.NumberRow()
-	opacityRow.setLabel('Opacity').onChange(update)
-	opacityRow.value.setRange(0,1.0)
-	container.add( opacityRow );
+    //////////////////////////////////////////////////////////////////////////////////
+    //		handle tab-material
+    //////////////////////////////////////////////////////////////////////////////////
 
-	var transparentRow	= new UI.CheckboxRow()
-	transparentRow.setLabel('Transparent').onChange(update)
-	container.add( transparentRow );
+    var uuidRow = new UI.InputRow()
+    uuidRow.setLabel('uuid').onChange(update)
+    container.add(uuidRow);
 
-	var sideRow	= new UI.SelectRow()
-	sideRow.setLabel('Side').onChange(update)
-	container.add( sideRow );
-	sideRow.value.setOptions( {
-		0	: 'Front',
-		1	: 'BackSide',
-		2	: 'DoubleSide'
-	})
-	
-	var shadingRow	= new UI.SelectRow()
-	shadingRow.setLabel('Shading').onChange(update)
-	container.add( shadingRow );
-	shadingRow.value.setOptions( {
-		0	: 'No',
-		1	: 'Flat',
-		2	: 'Smooth'
-	})
+    var nameRow = new UI.InputRow()
+    nameRow.setLabel('Name').onChange(update)
+    container.add(nameRow);
 
-	
-	var blendingRow	= new UI.SelectRow()
-	blendingRow.setLabel('Blending').onChange(update)
-	container.add( blendingRow );
-	blendingRow.value.setOptions( {
-		0	: 'No',
-		1	: 'Normal',
-		2	: 'Additive',
-		3	: 'Subtractive',
-		4	: 'Multiply',
-		5	: 'Custom',
-	})
-	
-	var rotationRow = new UI.NumberRow().onChange(update)
-	rotationRow.setLabel('Rotation')
-	container.add( rotationRow );
+    var colorRow = new UI.ColorRow()
+    colorRow.setLabel('Color').onChange(update)
+    container.add(colorRow);
 
-	var sizeRow = new UI.NumberRow().onChange(update)
-	sizeRow.value.setPrecision(0)
-	sizeRow.setLabel('Size')
-	container.add( sizeRow );
-	
-	var sizeAttenuationRow = new UI.CheckboxRow().onChange(update)
-	sizeAttenuationRow.setLabel('Size attenuation')
-	container.add( sizeAttenuationRow );
+    var emissiveRow = new UI.ColorRow()
+    emissiveRow.setLabel('Emissive').onChange(update)
+    container.add(emissiveRow);
 
-	var linewidthRow = new UI.NumberRow().onChange(update)
-	linewidthRow.value.setPrecision(0).setStep(10).setRange(0, 128)
-	linewidthRow.setLabel('Line Width')
-	container.add( linewidthRow );
+    var specularRow = new UI.ColorRow()
+    specularRow.setLabel('Specular').onChange(update)
+    container.add(specularRow);
 
-	var dashSizeRow = new UI.NumberRow().onChange(update)
-	dashSizeRow.setLabel('Dash Size')
-	container.add( dashSizeRow );
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Comments
-	//////////////////////////////////////////////////////////////////////////////////
-	var visibleRow	= new UI.CheckboxRow().setTitle('To enable visible')
-	visibleRow.setLabel('visible').onChange(update)
-	container.add( visibleRow );
+    var shininessRow = new UI.NumberRow()
+    shininessRow.setLabel('Shininess').onChange(update)
+    container.add(shininessRow);
 
-	var depthTestRow	= new UI.CheckboxRow().setTitle('To enable depthTest')
-	depthTestRow.setLabel('depthTest').onChange(update)
-	container.add( depthTestRow );
+    var wireframeRow = new UI.CheckboxRow().setTitle('To enable wireframe')
+    wireframeRow.setLabel('wireframe').onChange(update)
+    container.add(wireframeRow);
 
-	var depthWriteRow	= new UI.CheckboxRow().setTitle('To enable depthWrite')
-	depthWriteRow.setLabel('depthWrite').onChange(update)
-	container.add( depthWriteRow );
+    var wireframeLinewidthRow = new UI.NumberRow()
+    wireframeLinewidthRow.value.setPrecision(0).setStep(10).setRange(0, 128)
+    wireframeLinewidthRow.setLabel('wireframe width').onChange(update)
+    container.add(wireframeLinewidthRow);
 
-	var alphaTestRow	= new UI.NumberRow().setTitle('To enable alphaTest')
-	alphaTestRow.value.setRange(0,1.0)
-	alphaTestRow.setLabel('alphaTest').onChange(update)
-	container.add( alphaTestRow );
+    var opacityRow = new UI.NumberRow()
+    opacityRow.setLabel('Opacity').onChange(update)
+    opacityRow.value.setRange(0, 1.0)
+    container.add(opacityRow);
 
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Textures
-	//////////////////////////////////////////////////////////////////////////////////
+    var transparentRow = new UI.CheckboxRow()
+    transparentRow.setLabel('Transparent').onChange(update)
+    container.add(transparentRow);
 
-	var propertyPrefix = faceMaterialIndex === -1 ? 'material' : 'material.materials['+faceMaterialIndex+']'
+    var sideRow = new UI.SelectRow()
+    sideRow.setLabel('Side').onChange(update)
+    container.add(sideRow);
+    sideRow.value.setOptions({
+        0: 'Front',
+        1: 'BackSide',
+        2: 'DoubleSide'
+    })
 
-	var mapRow = new PanelWin3js.PanelTexture(propertyPrefix+'.map')
-	mapRow.textureRow.setLabel('Map')
-	container.add( mapRow );
+    var shadingRow = new UI.SelectRow()
+    shadingRow.setLabel('Shading').onChange(update)
+    container.add(shadingRow);
+    shadingRow.value.setOptions({
+        0: 'No',
+        1: 'Flat',
+        2: 'Smooth'
+    })
 
-	var bumpMapRow = new PanelWin3js.PanelTexture(propertyPrefix+'.bumpMap')
-	bumpMapRow.textureRow.setLabel('Bump map')
-	container.add( bumpMapRow );
 
-	var bumpScaleRow = new UI.NumberRow().onChange(update)
-	bumpScaleRow.setLabel('bumpScale')
-	container.add( bumpScaleRow );
-	
-	var normalMapRow = new PanelWin3js.PanelTexture(propertyPrefix+'.normalMap')
-	normalMapRow.textureRow.setLabel('Normal map')
-	container.add( normalMapRow );
-	
-	var normalScaleRow = new UI.LockableVector2Row().onChange(update)
-	normalScaleRow.setLabel('normalScale')
-	container.add( normalScaleRow );
-	normalScaleRow.setLocked(true)
+    var blendingRow = new UI.SelectRow()
+    blendingRow.setLabel('Blending').onChange(update)
+    container.add(blendingRow);
+    blendingRow.value.setOptions({
+        0: 'No',
+        1: 'Normal',
+        2: 'Additive',
+        3: 'Subtractive',
+        4: 'Multiply',
+        5: 'Custom',
+    })
 
-	//////////////////////////////////////////////////////////////////////////////////
-	//		update()
-	//////////////////////////////////////////////////////////////////////////////////
-	function update(){
-		var material = faceMaterialIndex === -1 ? editor.selected.material : editor.selected.material.materials[faceMaterialIndex]
+    var rotationRow = new UI.NumberRow().onChange(update)
+    rotationRow.setLabel('Rotation')
+    container.add(rotationRow);
 
-		var injectProperty = PanelWin3js.propertyOnObject3d;
-		var injectFunction = PanelWin3js.functionOnObject3d
-		var propertyPrefix = faceMaterialIndex === -1 ? 'material' : 'material.materials['+faceMaterialIndex+']'
+    var sizeRow = new UI.NumberRow().onChange(update)
+    sizeRow.value.setPrecision(0)
+    sizeRow.setLabel('Size')
+    container.add(sizeRow);
 
-		injectProperty(propertyPrefix+'.uuid', uuidRow.getValue())
-		injectProperty(propertyPrefix+'.name', nameRow.getValue())
-		
-		// injectFunction
-		if( material.color !== undefined ){
-			injectFunction(function(object3d, colorHexValue, faceMaterialIndex){
-				var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex]
-				material.color.set(colorHexValue)
-			}, [colorRow.value.getHexValue(), faceMaterialIndex]);
-		}
+    var sizeAttenuationRow = new UI.CheckboxRow().onChange(update)
+    sizeAttenuationRow.setLabel('Size attenuation')
+    container.add(sizeAttenuationRow);
 
-		// injectFunction
-		if( material.emissive !== undefined ){
-			injectFunction(function(object3d, colorHexValue, faceMaterialIndex){
-				var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex]
-				material.emissive.set(colorHexValue)
-			}, [emissiveRow.value.getHexValue(), faceMaterialIndex]);
-		}
+    var linewidthRow = new UI.NumberRow().onChange(update)
+    linewidthRow.value.setPrecision(0).setStep(10).setRange(0, 128)
+    linewidthRow.setLabel('Line Width')
+    container.add(linewidthRow);
 
-		// injectFunction
-		if( material.specular !== undefined ){
-			injectFunction(function(object3d, colorHexValue, faceMaterialIndex){
-				var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex]
-				material.specular.set(colorHexValue)
-			}, [specularRow.value.getHexValue(), faceMaterialIndex]);
-		}
+    var dashSizeRow = new UI.NumberRow().onChange(update)
+    dashSizeRow.setLabel('Dash Size')
+    container.add(dashSizeRow);
 
-		
-		if( material.shininess !== undefined ) injectProperty(propertyPrefix+'.shininess', shininessRow.getValue())
-		if( material.wireframe !== undefined ) injectProperty(propertyPrefix+'.wireframe', wireframeRow.getValue())
-		if( material.wireframeLinewidth !== undefined ) injectProperty(propertyPrefix+'.wireframeLinewidth', wireframeLinewidthRow.getValue())
-		if( material.opacity !== undefined ) injectProperty(propertyPrefix+'.opacity', opacityRow.getValue())
-		if( material.transparent !== undefined ) injectProperty(propertyPrefix+'.transparent', transparentRow.getValue())
-		if( material.side !== undefined ) injectProperty(propertyPrefix+'.side', parseInt(sideRow.getValue(),10))
-		if( material.shading !== undefined ) injectProperty(propertyPrefix+'.shading', parseInt(shadingRow.getValue(),10))
-		if( material.blending !== undefined ) injectProperty(propertyPrefix+'.blending', parseInt(blendingRow.getValue(),10))
+    //////////////////////////////////////////////////////////////////////////////////
+    //		Comments
+    //////////////////////////////////////////////////////////////////////////////////
+    var visibleRow = new UI.CheckboxRow().setTitle('To enable visible')
+    visibleRow.setLabel('visible').onChange(update)
+    container.add(visibleRow);
 
-		if( material.rotation !== undefined ) injectProperty(propertyPrefix+'.rotation', rotationRow.getValue())
-		if( material.size !== undefined ) injectProperty(propertyPrefix+'.size', sizeRow.getValue())
-		if( material.sizeAttenuation !== undefined ) injectProperty(propertyPrefix+'.sizeAttenuation', sizeAttenuationRow.getValue())
+    var depthTestRow = new UI.CheckboxRow().setTitle('To enable depthTest')
+    depthTestRow.setLabel('depthTest').onChange(update)
+    container.add(depthTestRow);
 
-		if( material.linewidth !== undefined ) injectProperty(propertyPrefix+'.linewidth', linewidthRow.getValue())
-		if( material.dashSize !== undefined ) injectProperty(propertyPrefix+'.dashSize', dashSizeRow.getValue())
+    var depthWriteRow = new UI.CheckboxRow().setTitle('To enable depthWrite')
+    depthWriteRow.setLabel('depthWrite').onChange(update)
+    container.add(depthWriteRow);
 
-		if( material.visible !== undefined ) injectProperty(propertyPrefix+'.visible', visibleRow.getValue())
-		if( material.depthTest !== undefined ) injectProperty(propertyPrefix+'.depthTest', depthTestRow.getValue())
-		if( material.depthWrite !== undefined ) injectProperty(propertyPrefix+'.depthWrite', depthWriteRow.getValue())
-		if( material.alphaTest !== undefined ) injectProperty(propertyPrefix+'.alphaTest', alphaTestRow.getValue())
+    var alphaTestRow = new UI.NumberRow().setTitle('To enable alphaTest')
+    alphaTestRow.value.setRange(0, 1.0)
+    alphaTestRow.setLabel('alphaTest').onChange(update)
+    container.add(alphaTestRow);
 
-		if( material.bumpScale !== undefined ) injectProperty(propertyPrefix+'.bumpScale', bumpScaleRow.getValue())
-		if( material.normalMap !== undefined ){
-			normalScaleRow.update(material.normalScale)
-			injectProperty(propertyPrefix+'.normalScale.x', normalScaleRow.valueX.getValue())
-			injectProperty(propertyPrefix+'.normalScale.y', normalScaleRow.valueY.getValue())			
-		}
-		
-		
-		injectProperty(propertyPrefix+'.needsUpdate', true)
-	}
+    //////////////////////////////////////////////////////////////////////////////////
+    //		Textures
+    //////////////////////////////////////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////////////////////////////////////
-	//		updateUI()
-	//////////////////////////////////////////////////////////////////////////////////
-	var subFaceMaterialPanels	= []
-	container.updateUI	= updateUI
-	function updateUI() {
-		var material = faceMaterialIndex === -1 ? editor.selected.material : editor.selected.material.materials[faceMaterialIndex]
+    var propertyPrefix = faceMaterialIndex === -1 ? 'material' : 'material.materials[' + faceMaterialIndex + ']'
 
-		materialSelectRow.value.setValue( material.className )
+    var mapRow = new PanelWin3js.PanelTexture(propertyPrefix + '.map')
+    mapRow.textureRow.setLabel('Map')
+    container.add(mapRow);
 
-		uuidRow.updateUI( material.uuid )
-		nameRow.updateUI( material.name )
+    var bumpMapRow = new PanelWin3js.PanelTexture(propertyPrefix + '.bumpMap')
+    bumpMapRow.textureRow.setLabel('Bump map')
+    container.add(bumpMapRow);
 
-		colorRow.updateUI( material.color )
-		emissiveRow.updateUI( material.emissive )
-		specularRow.updateUI( material.specular )
+    var bumpScaleRow = new UI.NumberRow().onChange(update)
+    bumpScaleRow.setLabel('bumpScale')
+    container.add(bumpScaleRow);
 
-		shininessRow.updateUI( material.shininess )
-		wireframeRow.updateUI( material.wireframe )
-		wireframeLinewidthRow.updateUI( material.wireframeLinewidth )
+    var normalMapRow = new PanelWin3js.PanelTexture(propertyPrefix + '.normalMap')
+    normalMapRow.textureRow.setLabel('Normal map')
+    container.add(normalMapRow);
 
-		opacityRow.updateUI( material.opacity )
-		transparentRow.updateUI( material.transparent )
+    var normalScaleRow = new UI.LockableVector2Row().onChange(update)
+    normalScaleRow.setLabel('normalScale')
+    container.add(normalScaleRow);
+    normalScaleRow.setLocked(true)
 
-		sideRow.updateUI( material.side )
-		shadingRow.updateUI( material.shading )
-		blendingRow.updateUI( material.blending )
+    //////////////////////////////////////////////////////////////////////////////////
+    //		update()
+    //////////////////////////////////////////////////////////////////////////////////
+    function update() {
+        var material = faceMaterialIndex === -1 ? editor.selected.material : editor.selected.material.materials[faceMaterialIndex]
 
-		rotationRow.updateUI( material.rotation )
-		sizeRow.updateUI( material.size )
-		sizeAttenuationRow.updateUI( material.sizeAttenuation )
+        var injectProperty = PanelWin3js.propertyOnObject3d;
+        var injectFunction = PanelWin3js.functionOnObject3d
+        var propertyPrefix = faceMaterialIndex === -1 ? 'material' : 'material.materials[' + faceMaterialIndex + ']'
 
-		linewidthRow.updateUI(material.linewidth)
-		dashSizeRow.updateUI(material.dashSize)
+        injectProperty(propertyPrefix + '.uuid', uuidRow.getValue())
+        injectProperty(propertyPrefix + '.name', nameRow.getValue())
 
-		visibleRow.updateUI(material.visible)
-		depthTestRow.updateUI(material.depthTest)
-		depthWriteRow.updateUI(material.depthWrite)
-		alphaTestRow.updateUI(material.alphaTest)
+        // injectFunction
+        if (material.color !== undefined) {
+            injectFunction(function (object3d, colorHexValue, faceMaterialIndex) {
+                var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex]
+                material.color.set(colorHexValue)
+            }, [colorRow.value.getHexValue(), faceMaterialIndex]);
+        }
 
-		mapRow.updateUI(material.map)
+        // injectFunction
+        if (material.emissive !== undefined) {
+            injectFunction(function (object3d, colorHexValue, faceMaterialIndex) {
+                var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex]
+                material.emissive.set(colorHexValue)
+            }, [emissiveRow.value.getHexValue(), faceMaterialIndex]);
+        }
 
-		bumpMapRow.updateUI(material.bumpMap)
-		bumpScaleRow.updateUI(material.bumpScale)
-		bumpScaleRow.setDisplay(material.bumpMap !== undefined ? '' : 'none')
+        // injectFunction
+        if (material.specular !== undefined) {
+            injectFunction(function (object3d, colorHexValue, faceMaterialIndex) {
+                var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex]
+                material.specular.set(colorHexValue)
+            }, [specularRow.value.getHexValue(), faceMaterialIndex]);
+        }
 
-		normalMapRow.updateUI(material.normalMap)
-		normalScaleRow.updateUI(material.normalScale)
-		normalScaleRow.setDisplay(material.normalMap !== undefined ? '' : 'none')
 
-		//////////////////////////////////////////////////////////////////////////////////
-		//		MeshFaceMaterial
-		//////////////////////////////////////////////////////////////////////////////////
+        if (material.shininess !== undefined) injectProperty(propertyPrefix + '.shininess', shininessRow.getValue())
+        if (material.wireframe !== undefined) injectProperty(propertyPrefix + '.wireframe', wireframeRow.getValue())
+        if (material.wireframeLinewidth !== undefined) injectProperty(propertyPrefix + '.wireframeLinewidth', wireframeLinewidthRow.getValue())
+        if (material.opacity !== undefined) injectProperty(propertyPrefix + '.opacity', opacityRow.getValue())
+        if (material.transparent !== undefined) injectProperty(propertyPrefix + '.transparent', transparentRow.getValue())
+        if (material.side !== undefined) injectProperty(propertyPrefix + '.side', parseInt(sideRow.getValue(), 10))
+        if (material.shading !== undefined) injectProperty(propertyPrefix + '.shading', parseInt(shadingRow.getValue(), 10))
+        if (material.blending !== undefined) injectProperty(propertyPrefix + '.blending', parseInt(blendingRow.getValue(), 10))
 
-		/**
-		 * here init as many sub PanelMaterial as found in material.materials
-		 */
-		if( material.className === 'MeshFaceMaterial' && material.materials.length !== subFaceMaterialPanels.length ){
-			subFaceMaterialPanels.forEach(function(subFaceMaterialPanel){
-				container.remove(subFaceMaterialPanel)
-			})
-			subFaceMaterialPanels	= []
-			for(var i = 0; i < material.materials.length; i++){
-				var subFaceMaterialPanel = new PanelMaterial(i)
-				subFaceMaterialPanels.push(subFaceMaterialPanel)
-				container.add(subFaceMaterialPanel)
-			}
-		}
-		
-		// update each subFaceMaterialPanels IF this material is a 'MeshFaceMaterial'
-		if( material.className === 'MeshFaceMaterial' ){
-			subFaceMaterialPanels.forEach(function(subFaceMaterialPanel){
-				subFaceMaterialPanel.updateUI()
-			})	
-		}
-		
-		// display subFaceMaterialPanels or not
-		subFaceMaterialPanels.forEach(function(subFaceMaterialPanel){
-			subFaceMaterialPanel.setDisplay(material.className === 'MeshFaceMaterial'  ? 'inherit' : 'none')
-		})
+        if (material.rotation !== undefined) injectProperty(propertyPrefix + '.rotation', rotationRow.getValue())
+        if (material.size !== undefined) injectProperty(propertyPrefix + '.size', sizeRow.getValue())
+        if (material.sizeAttenuation !== undefined) injectProperty(propertyPrefix + '.sizeAttenuation', sizeAttenuationRow.getValue())
 
-		//////////////////////////////////////////////////////////////////////////////////
-		//		subPanel
-		//////////////////////////////////////////////////////////////////////////////////
-		// remove subMaterialPanel if it exists
-		if( subMaterialPanel !== null ){
-			container.remove(subMaterialPanel)
-			subMaterialPanel = null
-		}
-		
-		// create suitable subMaterialPanel
-		if( material.className === 'ShaderMaterial'){
-			subMaterialPanel = new PanelMaterialShader(faceMaterialIndex);
-			subMaterialPanel.setPadding('0px')
-			container.add( subMaterialPanel );		
-		}
+        if (material.linewidth !== undefined) injectProperty(propertyPrefix + '.linewidth', linewidthRow.getValue())
+        if (material.dashSize !== undefined) injectProperty(propertyPrefix + '.dashSize', dashSizeRow.getValue())
 
-	}
+        if (material.visible !== undefined) injectProperty(propertyPrefix + '.visible', visibleRow.getValue())
+        if (material.depthTest !== undefined) injectProperty(propertyPrefix + '.depthTest', depthTestRow.getValue())
+        if (material.depthWrite !== undefined) injectProperty(propertyPrefix + '.depthWrite', depthWriteRow.getValue())
+        if (material.alphaTest !== undefined) injectProperty(propertyPrefix + '.alphaTest', alphaTestRow.getValue())
 
-	return container
+        if (material.bumpScale !== undefined) injectProperty(propertyPrefix + '.bumpScale', bumpScaleRow.getValue())
+        if (material.normalMap !== undefined) {
+            normalScaleRow.update(material.normalScale)
+            injectProperty(propertyPrefix + '.normalScale.x', normalScaleRow.valueX.getValue())
+            injectProperty(propertyPrefix + '.normalScale.y', normalScaleRow.valueY.getValue())
+        }
+
+
+        injectProperty(propertyPrefix + '.needsUpdate', true)
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////
+    //		updateUI()
+    //////////////////////////////////////////////////////////////////////////////////
+    var subFaceMaterialPanels = []
+    container.updateUI = updateUI
+    function updateUI() {
+        var material = faceMaterialIndex === -1 ? editor.selected.material : editor.selected.material.materials[faceMaterialIndex]
+
+        materialSelectRow.value.setValue(material.className)
+
+        uuidRow.updateUI(material.uuid)
+        nameRow.updateUI(material.name)
+
+        colorRow.updateUI(material.color)
+        emissiveRow.updateUI(material.emissive)
+        specularRow.updateUI(material.specular)
+
+        shininessRow.updateUI(material.shininess)
+        wireframeRow.updateUI(material.wireframe)
+        wireframeLinewidthRow.updateUI(material.wireframeLinewidth)
+
+        opacityRow.updateUI(material.opacity)
+        transparentRow.updateUI(material.transparent)
+
+        sideRow.updateUI(material.side)
+        shadingRow.updateUI(material.shading)
+        blendingRow.updateUI(material.blending)
+
+        rotationRow.updateUI(material.rotation)
+        sizeRow.updateUI(material.size)
+        sizeAttenuationRow.updateUI(material.sizeAttenuation)
+
+        linewidthRow.updateUI(material.linewidth)
+        dashSizeRow.updateUI(material.dashSize)
+
+        visibleRow.updateUI(material.visible)
+        depthTestRow.updateUI(material.depthTest)
+        depthWriteRow.updateUI(material.depthWrite)
+        alphaTestRow.updateUI(material.alphaTest)
+
+        mapRow.updateUI(material.map)
+
+        bumpMapRow.updateUI(material.bumpMap)
+        bumpScaleRow.updateUI(material.bumpScale)
+        bumpScaleRow.setDisplay(material.bumpMap !== undefined ? '' : 'none')
+
+        normalMapRow.updateUI(material.normalMap)
+        normalScaleRow.updateUI(material.normalScale)
+        normalScaleRow.setDisplay(material.normalMap !== undefined ? '' : 'none')
+
+        //////////////////////////////////////////////////////////////////////////////////
+        //		MeshFaceMaterial
+        //////////////////////////////////////////////////////////////////////////////////
+
+        /**
+         * here init as many sub PanelMaterial as found in material.materials
+         */
+        if (material.className === 'MeshFaceMaterial' && material.materials.length !== subFaceMaterialPanels.length) {
+            subFaceMaterialPanels.forEach(function (subFaceMaterialPanel) {
+                container.remove(subFaceMaterialPanel)
+            })
+            subFaceMaterialPanels = []
+            for (var i = 0; i < material.materials.length; i++) {
+                var subFaceMaterialPanel = new PanelMaterial(i)
+                subFaceMaterialPanels.push(subFaceMaterialPanel)
+                container.add(subFaceMaterialPanel)
+            }
+        }
+
+        // update each subFaceMaterialPanels IF this material is a 'MeshFaceMaterial'
+        if (material.className === 'MeshFaceMaterial') {
+            subFaceMaterialPanels.forEach(function (subFaceMaterialPanel) {
+                subFaceMaterialPanel.updateUI()
+            })
+        }
+
+        // display subFaceMaterialPanels or not
+        subFaceMaterialPanels.forEach(function (subFaceMaterialPanel) {
+            subFaceMaterialPanel.setDisplay(material.className === 'MeshFaceMaterial' ? 'inherit' : 'none')
+        })
+
+        //////////////////////////////////////////////////////////////////////////////////
+        //		subPanel
+        //////////////////////////////////////////////////////////////////////////////////
+        // remove subMaterialPanel if it exists
+        if (subMaterialPanel !== null) {
+            container.remove(subMaterialPanel)
+            subMaterialPanel = null
+        }
+
+        // create suitable subMaterialPanel
+        if (material.className === 'ShaderMaterial') {
+            subMaterialPanel = new PanelMaterialShader(faceMaterialIndex);
+            subMaterialPanel.setPadding('0px')
+            container.add(subMaterialPanel);
+        }
+
+    }
+
+    return container
 };

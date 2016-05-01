@@ -1,86 +1,86 @@
-var PanelWin3js	= PanelWin3js	|| {}
+var PanelWin3js = PanelWin3js || {}
 
 /**
  * Handle panel for object3d
  *
  * @constructor
  */
-PanelWin3js.PanelGeometrySphere	= function(object3d){
-	var editor	= PanelWin3js.editor
-	var signals	= editor.signals
+PanelWin3js.PanelGeometrySphere = function (object3d) {
+    var editor = PanelWin3js.editor
+    var signals = editor.signals
 
-	var container	= new UI.Panel()
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	//		handle tab-geometry
-	//////////////////////////////////////////////////////////////////////////////////
+    var container = new UI.Panel()
 
-	container.add( new UI.HorizontalRule() )
+    //////////////////////////////////////////////////////////////////////////////////
+    //		handle tab-geometry
+    //////////////////////////////////////////////////////////////////////////////////
 
-	var typeRow = new UI.TextRow()
-	typeRow.setLabel('Type')
-	container.add( typeRow );
+    container.add(new UI.HorizontalRule())
 
-	var radiusRow = new UI.NumberRow().onChange(updateWhole)
-	radiusRow.setLabel('Radius')
-	container.add( radiusRow );
+    var typeRow = new UI.TextRow()
+    typeRow.setLabel('Type')
+    container.add(typeRow);
 
-	var widthSegmentsRow = new UI.NumberRow().onChange(updateWhole)
-	widthSegmentsRow.setLabel('Width Segments')
-	widthSegmentsRow.value.setPrecision(0).setStep(5).setRange(1, 1000)
-	container.add( widthSegmentsRow );
+    var radiusRow = new UI.NumberRow().onChange(updateWhole)
+    radiusRow.setLabel('Radius')
+    container.add(radiusRow);
 
-	var heightSegmentsRow = new UI.NumberRow().onChange(updateWhole)
-	heightSegmentsRow.setLabel('Height Segments')
-	heightSegmentsRow.value.setPrecision(0).setStep(5).setRange(1, 1000)
-	container.add( heightSegmentsRow );
+    var widthSegmentsRow = new UI.NumberRow().onChange(updateWhole)
+    widthSegmentsRow.setLabel('Width Segments')
+    widthSegmentsRow.value.setPrecision(0).setStep(5).setRange(1, 1000)
+    container.add(widthSegmentsRow);
+
+    var heightSegmentsRow = new UI.NumberRow().onChange(updateWhole)
+    heightSegmentsRow.setLabel('Height Segments')
+    heightSegmentsRow.value.setPrecision(0).setStep(5).setRange(1, 1000)
+    container.add(heightSegmentsRow);
 
 
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Comments
-	//////////////////////////////////////////////////////////////////////////////////
-	function updateWhole(){
-		var injectProperty = PanelWin3js.propertyOnObject3d;
-		var injectFunction = PanelWin3js.functionOnObject3d
+    //////////////////////////////////////////////////////////////////////////////////
+    //		Comments
+    //////////////////////////////////////////////////////////////////////////////////
+    function updateWhole() {
+        var injectProperty = PanelWin3js.propertyOnObject3d;
+        var injectFunction = PanelWin3js.functionOnObject3d
 
-		// injectFunction
-		injectFunction(function(object3d, radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength){
-			// console.log('reinit torus knot', arguments)
-			delete object3d.__webglInit; // TODO: Remove hack (WebGLRenderer refactoring)
+        // injectFunction
+        injectFunction(function (object3d, radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength) {
+            // console.log('reinit torus knot', arguments)
+            delete object3d.__webglInit; // TODO: Remove hack (WebGLRenderer refactoring)
 
-			object3d.geometry.dispose();
+            object3d.geometry.dispose();
 
-			object3d.geometry = new THREE.SphereGeometry(
-				radius, widthSegments, heightSegments
-			);
+            object3d.geometry = new THREE.SphereGeometry(
+                radius, widthSegments, heightSegments
+            );
 
-			object3d.geometry.computeBoundingSphere();
-			// TODO trigger .onGeometryChange()
+            object3d.geometry.computeBoundingSphere();
+            // TODO trigger .onGeometryChange()
 
-		}, [radiusRow.getValue(), widthSegmentsRow.getValue(), heightSegmentsRow.getValue()]);
-	}
-		
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Comments
-	//////////////////////////////////////////////////////////////////////////////////
+        }, [radiusRow.getValue(), widthSegmentsRow.getValue(), heightSegmentsRow.getValue()]);
+    }
 
-	function updateUI(object3d) {
-		var geometry = object3d.geometry
+    //////////////////////////////////////////////////////////////////////////////////
+    //		Comments
+    //////////////////////////////////////////////////////////////////////////////////
 
-		console.assert( geometry.parameters )
-		
-		// set defaults values - may happen when it was undefined in constructor
-		if( geometry.parameters.widthSegments === undefined )	geometry.parameters.widthSegments = 8
-		if( geometry.parameters.heightSegments === undefined )	geometry.parameters.heightSegments = 8
+    function updateUI(object3d) {
+        var geometry = object3d.geometry
 
-		typeRow.updateUI( geometry.sniffType )
-		
-		radiusRow.updateUI(geometry.parameters.radius)
-		widthSegmentsRow.updateUI(geometry.parameters.widthSegments)
-		heightSegmentsRow.updateUI(geometry.parameters.heightSegments)
-	}
-	
-	updateUI(object3d)
+        console.assert(geometry.parameters)
 
-	return container
+        // set defaults values - may happen when it was undefined in constructor
+        if (geometry.parameters.widthSegments === undefined)    geometry.parameters.widthSegments = 8
+        if (geometry.parameters.heightSegments === undefined)    geometry.parameters.heightSegments = 8
+
+        typeRow.updateUI(geometry.sniffType)
+
+        radiusRow.updateUI(geometry.parameters.radius)
+        widthSegmentsRow.updateUI(geometry.parameters.widthSegments)
+        heightSegmentsRow.updateUI(geometry.parameters.heightSegments)
+    }
+
+    updateUI(object3d)
+
+    return container
 };

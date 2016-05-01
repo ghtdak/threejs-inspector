@@ -3,29 +3,29 @@ console.log('in content_script.js: start running')
 //////////////////////////////////////////////////////////////////////////////////
 //		to receive message from injected_script
 //////////////////////////////////////////////////////////////////////////////////
-window.addEventListener('message', function(event) {
-	var message = event.data;
+window.addEventListener('message', function (event) {
+    var message = event.data;
 
-	// console.log('in content_script.js: receiving window.message', message)
-	
-	// Only accept messages from the same frame
-	// if (event.source !== window) return
-	// console.log('receiving window.message')
+    // console.log('in content_script.js: receiving window.message', message)
 
-	// check the message
-	if( typeof message !== 'object' ) return
-	if( message === null ) return
-	
-	// check the message.source
-	if( message.source !== 'threejs-extension-inspected-window' ) return
+    // Only accept messages from the same frame
+    // if (event.source !== window) return
+    // console.log('receiving window.message')
 
-	// remove the magic 'message.source'
-	delete message.source
+    // check the message
+    if (typeof message !== 'object') return
+    if (message === null) return
 
-	// console.log('in content_script.js: receiving window.message for background page of three.js extension', message)
+    // check the message.source
+    if (message.source !== 'threejs-extension-inspected-window') return
 
-	// if this point is reached, send the message to the background page
-	chrome.runtime.sendMessage(message);
+    // remove the magic 'message.source'
+    delete message.source
+
+    // console.log('in content_script.js: receiving window.message for background page of three.js extension', message)
+
+    // if this point is reached, send the message to the background page
+    chrome.runtime.sendMessage(message);
 });
 
 

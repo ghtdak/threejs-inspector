@@ -1,90 +1,90 @@
-var PanelWin3js	= PanelWin3js	|| {}
+var PanelWin3js = PanelWin3js || {}
 
 /**
  * Handle panel for object3d
  *
  * @constructor
  */
-PanelWin3js.PanelGeometryTorusKnot	= function(object3d){
-	var editor	= PanelWin3js.editor
-	var signals	= editor.signals
+PanelWin3js.PanelGeometryTorusKnot = function (object3d) {
+    var editor = PanelWin3js.editor
+    var signals = editor.signals
 
-	var container	= new UI.Panel()
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	//		handle tab-geometry
-	//////////////////////////////////////////////////////////////////////////////////
+    var container = new UI.Panel()
 
-	container.add( new UI.HorizontalRule() )
+    //////////////////////////////////////////////////////////////////////////////////
+    //		handle tab-geometry
+    //////////////////////////////////////////////////////////////////////////////////
 
-	var typeRow = new UI.TextRow()
-	typeRow.setLabel('Type')
-	container.add( typeRow );
+    container.add(new UI.HorizontalRule())
 
-	var radiusRow = new UI.NumberRow().onChange(updateWhole)
-	radiusRow.setLabel('Radius')
-	container.add( radiusRow );
+    var typeRow = new UI.TextRow()
+    typeRow.setLabel('Type')
+    container.add(typeRow);
 
-	var tubeRow = new UI.NumberRow().onChange(updateWhole)
-	tubeRow.setLabel('Tube')
-	container.add( tubeRow );
+    var radiusRow = new UI.NumberRow().onChange(updateWhole)
+    radiusRow.setLabel('Radius')
+    container.add(radiusRow);
 
-	var radialSegmentsRow = new UI.NumberRow().onChange(updateWhole)
-	radialSegmentsRow.setLabel('Radial Segments')
-	radialSegmentsRow.value.setPrecision(0).setStep(3).setRange(1, 1000)
-	container.add( radialSegmentsRow );
-	radialSegmentsRow.value.setPrecision(0)
+    var tubeRow = new UI.NumberRow().onChange(updateWhole)
+    tubeRow.setLabel('Tube')
+    container.add(tubeRow);
 
-	var tubularSegmentsRow = new UI.NumberRow().onChange(updateWhole)
-	tubularSegmentsRow.setLabel('Tubular Segments')
-	tubularSegmentsRow.value.setPrecision(0).setStep(3).setRange(1, 1000)
-	container.add( tubularSegmentsRow );
-	tubularSegmentsRow.value.setPrecision(0)
+    var radialSegmentsRow = new UI.NumberRow().onChange(updateWhole)
+    radialSegmentsRow.setLabel('Radial Segments')
+    radialSegmentsRow.value.setPrecision(0).setStep(3).setRange(1, 1000)
+    container.add(radialSegmentsRow);
+    radialSegmentsRow.value.setPrecision(0)
 
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Comments
-	//////////////////////////////////////////////////////////////////////////////////
-	function updateWhole(){
-		var injectProperty = PanelWin3js.propertyOnObject3d;
-		var injectFunction = PanelWin3js.functionOnObject3d
+    var tubularSegmentsRow = new UI.NumberRow().onChange(updateWhole)
+    tubularSegmentsRow.setLabel('Tubular Segments')
+    tubularSegmentsRow.value.setPrecision(0).setStep(3).setRange(1, 1000)
+    container.add(tubularSegmentsRow);
+    tubularSegmentsRow.value.setPrecision(0)
 
-		// injectFunction
-		injectFunction(function(object3d, radius, tube, radialSegments, tubularSegments){
-			// console.log('reinit torus knot', arguments)
-			delete object3d.__webglInit; // TODO: Remove hack (WebGLRenderer refactoring)
+    //////////////////////////////////////////////////////////////////////////////////
+    //		Comments
+    //////////////////////////////////////////////////////////////////////////////////
+    function updateWhole() {
+        var injectProperty = PanelWin3js.propertyOnObject3d;
+        var injectFunction = PanelWin3js.functionOnObject3d
 
-			object3d.geometry.dispose();
+        // injectFunction
+        injectFunction(function (object3d, radius, tube, radialSegments, tubularSegments) {
+            // console.log('reinit torus knot', arguments)
+            delete object3d.__webglInit; // TODO: Remove hack (WebGLRenderer refactoring)
 
-			object3d.geometry = new THREE.TorusKnotGeometry(
-				radius,
-				tube,
-				radialSegments,
-				tubularSegments
-			);
+            object3d.geometry.dispose();
 
-			object3d.geometry.computeBoundingSphere();
+            object3d.geometry = new THREE.TorusKnotGeometry(
+                radius,
+                tube,
+                radialSegments,
+                tubularSegments
+            );
 
-		}, [radiusRow.getValue(), tubeRow.getValue(), radialSegmentsRow.getValue(), tubularSegmentsRow.getValue()]);
-	}
-		
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Comments
-	//////////////////////////////////////////////////////////////////////////////////
+            object3d.geometry.computeBoundingSphere();
 
-	function updateUI(object3d) {
-		var geometry = object3d.geometry
+        }, [radiusRow.getValue(), tubeRow.getValue(), radialSegmentsRow.getValue(), tubularSegmentsRow.getValue()]);
+    }
 
-		console.assert( geometry.parameters )
+    //////////////////////////////////////////////////////////////////////////////////
+    //		Comments
+    //////////////////////////////////////////////////////////////////////////////////
 
-		typeRow.updateUI( geometry.sniffType )
-		
-		radiusRow.updateUI(geometry.parameters.radius)
-		tubeRow.updateUI(geometry.parameters.tube)
-		radialSegmentsRow.updateUI(geometry.parameters.radialSegments)
-		tubularSegmentsRow.updateUI(geometry.parameters.tubularSegments)
-	}
-	
-	updateUI(object3d)
+    function updateUI(object3d) {
+        var geometry = object3d.geometry
 
-	return container
+        console.assert(geometry.parameters)
+
+        typeRow.updateUI(geometry.sniffType)
+
+        radiusRow.updateUI(geometry.parameters.radius)
+        tubeRow.updateUI(geometry.parameters.tube)
+        radialSegmentsRow.updateUI(geometry.parameters.radialSegments)
+        tubularSegmentsRow.updateUI(geometry.parameters.tubularSegments)
+    }
+
+    updateUI(object3d)
+
+    return container
 };

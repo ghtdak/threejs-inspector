@@ -1,4 +1,4 @@
-var PanelWin3js	= PanelWin3js	|| {}
+var PanelWin3js = PanelWin3js || {}
 
 console.log("in panel.js: start running");
 
@@ -7,9 +7,10 @@ console.log("in panel.js: start running");
 //////////////////////////////////////////////////////////////////////////////////
 
 // Change the prefix of signals.js library. It is all low case.
-var SIGNALS = signals; delete window.signals;
+var SIGNALS = signals;
+delete window.signals;
 
-PanelWin3js.editor	= new Editor()
+PanelWin3js.editor = new Editor()
 
 //////////////////////////////////////////////////////////////////////////////
 //              connect background page

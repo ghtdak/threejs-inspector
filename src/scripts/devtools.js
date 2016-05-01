@@ -8,32 +8,32 @@ console.log('in devtools.js: devtools.js execution started. tabId', chrome.devto
 //////////////////////////////////////////////////////////////////////////////
 
 var hasInspectedWindow = chrome.devtools.inspectedWindow.tabId !== undefined ? true : false;
-if( hasInspectedWindow === true ){
-        // determine if the inspectedWindow is a devtools page
-        chrome.devtools.inspectedWindow.eval("window.DevToolsAPI !== undefined ? true : false;", function(result, exceptionInfo){
-                var devtoolsInParent = result;
-                if( devtoolsInParent === false ){
-                        initPanel();
-                }else{
-                        console.log('in devtools.js: inspected page is a devtools page, so not initializing three.js extension')
-                }
-        })
-}else{
-        console.log('in devtools.js: no inspected page, so not initializing three.js extension')
+if (hasInspectedWindow === true) {
+    // determine if the inspectedWindow is a devtools page
+    chrome.devtools.inspectedWindow.eval("window.DevToolsAPI !== undefined ? true : false;", function (result, exceptionInfo) {
+        var devtoolsInParent = result;
+        if (devtoolsInParent === false) {
+            initPanel();
+        } else {
+            console.log('in devtools.js: inspected page is a devtools page, so not initializing three.js extension')
+        }
+    })
+} else {
+    console.log('in devtools.js: no inspected page, so not initializing three.js extension')
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //              create panel
 //////////////////////////////////////////////////////////////////////////////
 
-function initPanel(){
-        chrome.devtools.panels.create("Three.js Inspector-dev",
-                "images/icon_128.png",
-                "panel/panel.html",
-                function(panel) {
-                        console.log("in devtools.js: panel created", panel);
-                } 
-        );
+function initPanel() {
+    chrome.devtools.panels.create("Three.js Inspector-dev",
+        "images/icon_128.png",
+        "panel/panel.html",
+        function (panel) {
+            console.log("in devtools.js: panel created", panel);
+        }
+    );
 }
 
 //////////////////////////////////////////////////////////////////////////////////

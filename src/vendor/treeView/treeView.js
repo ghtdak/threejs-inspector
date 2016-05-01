@@ -1,4 +1,3 @@
-
 //////////////////////////////////////////////////////////////////////////////////
 //		Comments
 //////////////////////////////////////////////////////////////////////////////////
@@ -6,26 +5,26 @@
 /**
  * Handle the tree view
  */
-function TreeView( domElementContainer ) {
+function TreeView(domElementContainer) {
 
-	
-	this.root = new TreeViewItem( 'Root');
-	this.root.createRootNode();
-	this.root.ulDomElement.classList.add( 'treeView' );
-	this.root.treeView = this;
 
-	this.domElementContainer = domElementContainer;
-	this.domElementContainer.appendChild( this.root.ulDomElement );
+    this.root = new TreeViewItem('Root');
+    this.root.createRootNode();
+    this.root.ulDomElement.classList.add('treeView');
+    this.root.treeView = this;
+
+    this.domElementContainer = domElementContainer;
+    this.domElementContainer.appendChild(this.root.ulDomElement);
 }
 
 /**
  * remove any active item
  * @return {[type]} [description]
  */
-TreeView.prototype.clearActive = function() {
+TreeView.prototype.clearActive = function () {
 
-	var activeElement = this.root.ulDomElement.querySelector( '.active' );
-	if( activeElement ) activeElement.classList.remove( 'active' );
+    var activeElement = this.root.ulDomElement.querySelector('.active');
+    if (activeElement) activeElement.classList.remove('active');
 
 }
 
@@ -33,10 +32,10 @@ TreeView.prototype.clearActive = function() {
  * empty the treeView
  */
 TreeView.prototype.empty = function () {
-	var ulDomElement	 = this.root.ulDomElement
-	while( ulDomElement.firstChild ){		
-		ulDomElement.removeChild( ulDomElement.firstChild );
-	}
+    var ulDomElement = this.root.ulDomElement
+    while (ulDomElement.firstChild) {
+        ulDomElement.removeChild(ulDomElement.firstChild);
+    }
 };
 
 
@@ -44,9 +43,9 @@ TreeView.prototype.empty = function () {
  * return the root item
  * @return {threeViewItem} the root item
  */
-TreeView.prototype.getRoot = function() {
+TreeView.prototype.getRoot = function () {
 
-	return this.root;
+    return this.root;
 
 }
 
@@ -57,19 +56,19 @@ TreeView.prototype.getRoot = function() {
  * function notified when an item is selected
  * @param {String|Null} uuid - the object3d selected
  */
-TreeView.prototype.onSelect = function(uuid) {
+TreeView.prototype.onSelect = function (uuid) {
 }
 
 /**
  * function notified when an item toggleVisibility is click
  * @param {String} uuid - the object3d selected
  */
-TreeView.prototype.onToggleVisibility = function(uuid) {
+TreeView.prototype.onToggleVisibility = function (uuid) {
 }
 
 /**
  * function notified when an item toggleVisibility is click
  * @param {String} uuid - the object3d selected
  */
-TreeView.prototype.onExport = function(uuid) {
+TreeView.prototype.onExport = function (uuid) {
 }
