@@ -63,7 +63,7 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
         'MeshPhongMaterial':   'MeshPhongMaterial',
         'PointCloudMaterial':  'PointCloudMaterial',
         'ShaderMaterial':      'ShaderMaterial',
-        'SpriteMaterial':      'SpriteMaterial',
+        'SpriteMaterial':      'SpriteMaterial'
     });
     materialSelectRow.onChange(function () {
         var value = materialSelectRow.value.getValue();
@@ -112,7 +112,7 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
     var popupMenu = UI.PopupMenuHelper.createSelect({
         '':                '--- Options ---',
         'createMap':       'Create Map Texture',
-        'exportInConsole': 'Export in Console',
+        'exportInConsole': 'Export in Console'
     }, onPopupMenuChange);
     materialSelectRow.add(popupMenu);
 
@@ -218,7 +218,7 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
         2: 'Additive',
         3: 'Subtractive',
         4: 'Multiply',
-        5: 'Custom',
+        5: 'Custom'
     });
 
     var rotationRow = new UI.NumberRow().onChange(update);

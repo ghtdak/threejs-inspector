@@ -33,7 +33,7 @@ PanelWin3js.PanelTexture = function (propertyPrefix) {
     var popupMenu = UI.PopupMenuHelper.createSelect({
         '':                '--- Options ---',
         'openInTab':       'Open in Tab',
-        'exportInConsole': 'Export in Console',
+        'exportInConsole': 'Export in Console'
     }, onPopupMenuChange);
     textureRow.typeRow.add(popupMenu);
 

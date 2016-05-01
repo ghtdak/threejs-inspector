@@ -15,7 +15,7 @@ InspectedWin3js.object3dToJSON = function (object3d) {
         scale:    {x: object3d.scale.x, y: object3d.scale.y, z: object3d.scale.z},
 
         castShadow:    object3d.castShadow,
-        receiveShadow: object3d.receiveShadow,
+        receiveShadow: object3d.receiveShadow
     };
     // populate dataJson.childrenUuid
     object3d.children.forEach(function (child) {
@@ -66,7 +66,7 @@ InspectedWin3js.object3dToJSON = function (object3d) {
         data.geometry = {
             className: className,
             uuid:      geometry.uuid,
-            name:      geometry.name,
+            name:      geometry.name
         };
 
         if (geometry.vertices !== undefined)    data.geometry.verticesLength = geometry.vertices.length;
@@ -90,7 +90,7 @@ InspectedWin3js.object3dToJSON = function (object3d) {
                     y: geometry.boundingSphere.center.y,
                     z: geometry.boundingSphere.center.z
                 },
-                radius: geometry.boundingSphere.radius,
+                radius: geometry.boundingSphere.radius
             }
         }
 
@@ -101,7 +101,7 @@ InspectedWin3js.object3dToJSON = function (object3d) {
                     radius:          geometry.parameters.radius,
                     tube:            geometry.parameters.tube,
                     radialSegments:  geometry.parameters.radialSegments,
-                    tubularSegments: geometry.parameters.tubularSegments,
+                    tubularSegments: geometry.parameters.tubularSegments
                 };
             } else if (className === 'SphereGeometry') {
                 data.geometry.parameters.radius = geometry.parameters.radius;
@@ -116,7 +116,7 @@ InspectedWin3js.object3dToJSON = function (object3d) {
 
         var data = {
             className: InspectedWin3js.getThreeJSClassName(material),
-            uuid:      material.uuid,
+            uuid:      material.uuid
         };
         if (material.name !== undefined)        data.name = material.name;
 
@@ -167,12 +167,12 @@ InspectedWin3js.object3dToJSON = function (object3d) {
                 if (uniform.type === 'f') {
                     data.uniforms[name] = {
                         type:  uniform.type,
-                        value: uniform.value,
+                        value: uniform.value
                     }
                 } else if (uniform.type === 'i') {
                     data.uniforms[name] = {
                         type:  uniform.type,
-                        value: uniform.value,
+                        value: uniform.value
                     };
                     console.log('uniform', name, data.uniforms[name])
                 } else if (uniform.type === 'v2') {
@@ -180,7 +180,7 @@ InspectedWin3js.object3dToJSON = function (object3d) {
                         type:  uniform.type,
                         value: {
                             x: uniform.value.x,
-                            y: uniform.value.y,
+                            y: uniform.value.y
                         }
                     }
                 } else if (uniform.type === 'v3') {
@@ -189,18 +189,18 @@ InspectedWin3js.object3dToJSON = function (object3d) {
                         value: {
                             x: uniform.value.x,
                             y: uniform.value.y,
-                            z: uniform.value.z,
+                            z: uniform.value.z
                         }
                     }
                 } else if (uniform.type === 'c') {
                     data.uniforms[name] = {
                         type:  uniform.type,
-                        value: uniform.value.getHexString(),
+                        value: uniform.value.getHexString()
                     }
                 } else if (uniform.type === 't') {
                     data.uniforms[name] = {
                         type:  uniform.type,
-                        value: textureToJSON(uniform.value),
+                        value: textureToJSON(uniform.value)
                     }
                 } else {
                     // console.warn('uniform type', uniform.type, 'not handled.')
@@ -230,7 +230,7 @@ InspectedWin3js.object3dToJSON = function (object3d) {
         var data = {
             className: InspectedWin3js.getThreeJSClassName(texture),
             uuid:      texture.uuid,
-            name:      texture.name,
+            name:      texture.name
         };
 
         if (texture.offset !== undefined)    data.offset = {x: texture.offset.x, y: texture.offset.y};

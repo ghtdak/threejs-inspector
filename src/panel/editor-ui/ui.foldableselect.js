@@ -165,7 +165,7 @@ UI.FoldableSelect.prototype.getStateJson = function () {
     // build the state to return
     var state = {
         unfoldedIndexes: unfoldedIndexes,
-        selectedValue:   foldableSelect.getValue(),
+        selectedValue:   foldableSelect.getValue()
     };
     // actually return the result
     return state

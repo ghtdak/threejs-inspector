@@ -117,7 +117,7 @@ UI.TextureRow = function () {
         '1005': 'NearestMipMapLinear',
         '1006': 'Linear',
         '1007': 'LinearMipMapNearest',
-        '1008': 'LinearMipMapLinear',
+        '1008': 'LinearMipMapLinear'
     };
 
 
@@ -141,7 +141,7 @@ UI.TextureRow = function () {
     var wrapOptions = {
         '1001': 'ClampToEdge',
         '1000': 'Repeat',
-        '1002': 'MirroredRepeat',
+        '1002': 'MirroredRepeat'
     };
     wrapRow.add(new UI.Text('S:'));
     var wrapS = new UI.Select().setOptions(wrapOptions).onChange(function () {

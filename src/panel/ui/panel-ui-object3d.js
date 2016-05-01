@@ -35,7 +35,7 @@ PanelWin3js.PanelObject3D = function () {
         'doResetPosition': 'Reset Position',
         'doResetRotation': 'Reset Rotation',
         'doResetScale':    'Reset Scale',
-        'exportInConsole': 'Export in Console',
+        'exportInConsole': 'Export in Console'
     }, onPopupMenuChange);
     container.titleElement.add(popupMenu);
     // container.add(popupMenu)

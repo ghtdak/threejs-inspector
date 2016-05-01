@@ -41,7 +41,7 @@ PanelWin3js.PanelGeometry = function () {
         '':                '--- Options ---',
         'viewVertices':    'View Vertices',
         'viewFaces':       'View Faces',
-        'exportInConsole': 'Export in Console',
+        'exportInConsole': 'Export in Console'
     }, onPopupMenuChange);
     typeRow.add(popupMenu);
 

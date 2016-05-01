@@ -27,7 +27,7 @@ PanelWin3js.PanelMaterialShader = function (faceMaterialIndex) {
     var popupMenu = UI.PopupMenuHelper.createSelect({
         '':                   '--- Options ---',
         'viewVertexShader':   'View vertexShader',
-        'viewFragmentShader': 'View fragmentShader',
+        'viewFragmentShader': 'View fragmentShader'
     }, onPopupMenuChange);
     typeRow.add(popupMenu);
 

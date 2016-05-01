@@ -30,7 +30,7 @@ PanelWin3js.PanelTreeView = function () {
     var popupMenu = UI.PopupMenuHelper.createSelect({
         '':            '--- Options ---',
         'collapseAll': 'Collapse All',
-        'expandAll':   'Expand All',
+        'expandAll':   'Expand All'
     }, onPopupMenuChange);
     container.titleElement.add(popupMenu);
     container.dom.appendChild(document.createElement('br'));
