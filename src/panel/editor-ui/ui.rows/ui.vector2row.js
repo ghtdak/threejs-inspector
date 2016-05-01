@@ -1,5 +1,5 @@
 UI.Vector2Row = function () {
-    var row = this;
+    
     UI.Panel.call(this);
 
     // build the label

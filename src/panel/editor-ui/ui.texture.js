@@ -51,7 +51,7 @@ UI.Texture = function () {
     urlInput.setAttribute('title', 'the url of the texture');
     dom.appendChild(urlInput);
     urlInput.addEventListener('change', function () {
-        var url = urlInput.value;
+        
         _this.setValue(urlInput.value);
 
         if (_this.onChangeCallback)    _this.onChangeCallback();

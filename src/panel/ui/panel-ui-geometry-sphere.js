@@ -7,7 +7,7 @@ var PanelWin3js = PanelWin3js || {};
  */
 PanelWin3js.PanelGeometrySphere = function (object3d) {
     var editor = PanelWin3js.editor;
-    var signals = editor.signals;
+    
 
     var container = new UI.Panel();
 
@@ -40,7 +40,7 @@ PanelWin3js.PanelGeometrySphere = function (object3d) {
     //		Comments
     //////////////////////////////////////////////////////////////////////////////////
     function updateWhole() {
-        var injectProperty = PanelWin3js.propertyOnObject3d;
+        
         var injectFunction = PanelWin3js.functionOnObject3d;
 
         // injectFunction

@@ -1,7 +1,7 @@
 UI.Texture = function () {
 
     UI.Element.call(this);
-    var _this = this;
+    
 
     var dom = document.createElement('span');
 
@@ -35,7 +35,7 @@ UI.Texture = function () {
     urlInput.setAttribute('title', 'the url of the texture');
     dom.appendChild(urlInput);
     urlInput.addEventListener('change', function () {
-        var url = urlInput.value;
+        
         // THREE.ImageUtils.loadTexture(url, undefined, function(texture){
         // 
         // 	_this.setValue(texture)

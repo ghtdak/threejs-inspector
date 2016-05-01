@@ -7,7 +7,7 @@ var PanelWin3js = PanelWin3js || {};
  */
 PanelWin3js.PanelMaterialShader = function (faceMaterialIndex) {
     var editor = PanelWin3js.editor;
-    var signals = editor.signals;
+    
 
     var container = new UI.Panel();
 

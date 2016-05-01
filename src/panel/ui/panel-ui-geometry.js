@@ -7,7 +7,7 @@ var PanelWin3js = PanelWin3js || {};
  */
 PanelWin3js.PanelGeometry = function () {
     var editor = PanelWin3js.editor;
-    var signals = editor.signals;
+    
     var subGeometryPanel = null;
 
     var container = new UI.Panel();
@@ -47,7 +47,7 @@ PanelWin3js.PanelGeometry = function () {
 
     function onPopupMenuChange(value) {
         var injectFunction = PanelWin3js.functionOnObject3d;
-        var geometry = editor.selected.geometry;
+        
 
         if (value === 'viewVertices') {
             injectFunction(function (object3d) {
@@ -87,7 +87,7 @@ PanelWin3js.PanelGeometry = function () {
             // var url = 'http://threejs.org/docs/#Reference/Objects/Mesh'
             var url = typeToUrl(editor.selected.geometry.className);
             PanelWin3js.plainFunction(function (url) {
-                var win = window.open(url, '_blank');
+                
             }, [url]);
 
             
@@ -163,7 +163,7 @@ PanelWin3js.PanelGeometry = function () {
     //////////////////////////////////////////////////////////////////////////////////
     function updateWhole() {
         var injectProperty = PanelWin3js.propertyOnObject3d;
-        var injectFunction = PanelWin3js.functionOnObject3d;
+        
 
         injectProperty('geometry.uuid', uuidRow.getValue());
         injectProperty('geometry.name', nameRow.getValue())

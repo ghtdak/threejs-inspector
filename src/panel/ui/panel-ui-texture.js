@@ -8,7 +8,7 @@ var PanelWin3js = PanelWin3js || {};
 PanelWin3js.PanelTexture = function (propertyPrefix) {
     var editor = PanelWin3js.editor;
 
-    var signals = editor.signals;
+    
 
     var container = new UI.Panel();
     var _this = container;

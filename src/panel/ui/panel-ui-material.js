@@ -11,7 +11,7 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
     //		Comments
     //////////////////////////////////////////////////////////////////////////////////
     var editor = PanelWin3js.editor;
-    var signals = editor.signals;
+    
     var subMaterialPanel = null;
 
     if (faceMaterialIndex === -1) {
@@ -95,7 +95,7 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
             // var url = 'http://threejs.org/docs/#Reference/Objects/Mesh'
             var url = typeToUrl(editor.selected.material.className);
             PanelWin3js.plainFunction(function (url) {
-                var win = window.open(url, '_blank');
+                
             }, [url]);
 
             
@@ -118,7 +118,7 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
 
     function onPopupMenuChange(value) {
         var injectFunction = PanelWin3js.functionOnObject3d;
-        var geometry = editor.selected.geometry;
+        
 
         if (value === 'createMap') {
             injectFunction(function (object3d, textureType, faceMaterialIndex) {

@@ -8,7 +8,7 @@ var PanelWin3js = PanelWin3js || {};
 PanelWin3js.PanelObject3D = function () {
 
     var editor = PanelWin3js.editor;
-    var signals = editor.signals;
+    
 
     var container = UI.CollapsiblePanelHelper.createContainer('OBJECT3D', 'sidebarObject3d', false);
     container.setDisplay('none');
@@ -88,7 +88,7 @@ PanelWin3js.PanelObject3D = function () {
             // var url = 'http://threejs.org/docs/#Reference/Objects/Mesh'
             var url = typeToUrl(editor.selected.className);
             PanelWin3js.plainFunction(function (url) {
-                var win = window.open(url, '_blank');
+                
             }, [url]);
 
             

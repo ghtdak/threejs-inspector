@@ -355,7 +355,7 @@ UI.Input = function () {
 
     UI.Element.call(this);
 
-    var scope = this;
+    
 
     var dom = document.createElement('input');
     dom.className = 'Input';
@@ -397,7 +397,7 @@ UI.TextArea = function () {
 
     UI.Element.call(this);
 
-    var scope = this;
+    
 
     var dom = document.createElement('textarea');
     dom.className = 'TextArea';
@@ -439,7 +439,7 @@ UI.Select = function () {
 
     UI.Element.call(this);
 
-    var scope = this;
+    
 
     var dom = document.createElement('select');
     dom.className = 'Select';
@@ -662,7 +662,7 @@ UI.Checkbox = function (boolean) {
 
     UI.Element.call(this);
 
-    var scope = this;
+    
 
     var dom = document.createElement('input');
     dom.className = 'Checkbox';
@@ -707,7 +707,7 @@ UI.Color = function () {
 
     UI.Element.call(this);
 
-    var scope = this;
+    
 
     var dom = document.createElement('input');
     dom.className = 'Color';
@@ -1135,7 +1135,7 @@ UI.Button = function (value) {
 
     UI.Element.call(this);
 
-    var scope = this;
+    
 
     var dom = document.createElement('button');
     dom.className = 'Button';

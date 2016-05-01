@@ -50,7 +50,7 @@ PanelWin3js.plainFunction = function (fct, args) {
  * @param  {any} value    - the value to set
  */
 PanelWin3js.propertyOnObject3d = function (property, value) {
-    var editor = PanelWin3js.editor;
+    
 
     PanelWin3js.plainFunction(function (property, value) {
         // console.log('in panel-injector.js: change property', property, 'value', value)
@@ -118,7 +118,7 @@ PanelWin3js.injectInspectedWinScripts = function () {
     });
 
 
-    
+
 
     function readFile(url) {
         var request = new XMLHttpRequest();
