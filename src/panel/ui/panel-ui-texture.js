@@ -42,7 +42,7 @@ PanelWin3js.PanelTexture = function (propertyPrefix) {
             var url = textureRow.uiTexture.getValue();
             window.open(url, '_blank');
             window.focus();
-            return
+            
         } else if (value === 'exportInConsole') {
             PanelWin3js.functionOnObject3d(function (object3d, propertyPrefix) {
                 var texture = eval('object3d.' + propertyPrefix);
@@ -50,7 +50,7 @@ PanelWin3js.PanelTexture = function (propertyPrefix) {
                 console.log('three.js inspector: Material exported as $texture');
                 console.dir($texture)
             }, [propertyPrefix]);
-            return
+            
         } else {
             console.assert(false)
         }

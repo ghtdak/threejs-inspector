@@ -72,7 +72,7 @@ PanelWin3js.PanelTreeView = function () {
         PanelWin3js.plainFunction(function (uuid) {
             console.log('in panel-ui-treeview.js: toggle visibility in uuid', uuid);
             var object3d = InspectedWin3js.getObjectByUuid(uuid);
-            object3d.visible = object3d.visible === true ? false : true
+            object3d.visible = object3d.visible !== true
         }, [object3dUuid])
     };
     treeView.onExport = function (object3dUuid) {

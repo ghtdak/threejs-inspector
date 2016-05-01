@@ -38,7 +38,7 @@ UI.LockableVector3Row = function () {
     //		handle onChange
     //////////////////////////////////////////////////////////////////////////////////
     this.isLocked = function () {
-        return scaleLock.getValue() === true ? true : false
+        return scaleLock.getValue() === true
     };
     this.setLocked = function (value) {
         scaleLock.setValue(value);

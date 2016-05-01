@@ -52,7 +52,7 @@ PanelWin3js.PanelSplash = function () {
         // listen to injectedInspectedWin to know when the scripts are injected
         signals.injectedInspectedWin.add(onInjectedInspectedWin);
 
-        return;
+        
 
         function onInjectedInspectedWin() {
             // remove the signals function

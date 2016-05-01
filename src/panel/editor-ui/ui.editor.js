@@ -58,7 +58,7 @@ UI.TabsHelper = {
         tabContainer.isEnabled = function (childIndex) {
             console.assert(childIndex < headers.children.length);
 
-            var isEnabled = headers.children[childIndex].classList.contains('disabled') ? false : true;
+            var isEnabled = !headers.children[childIndex].classList.contains('disabled');
             return isEnabled
         };
         //////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ UI.TabsHelper = {
             console.assert(childIndex < headers.children.length);
             console.assert(tabs.children.length === headers.children.length);
 
-            var isActive = headers.children[childIndex].classList.contains('active') ? true : false;
+            var isActive = !!headers.children[childIndex].classList.contains('active');
             return isActive
         };
 
@@ -129,7 +129,7 @@ UI.CollapsiblePanelHelper = {
         var storageKey = 'layoutCollapsed_' + title;
         var itemValue = localStorage.getItem(storageKey);
         if (localStorage.getItem(storageKey) !== null) {
-            container.setCollapsed(localStorage.getItem(storageKey) === 'true' ? true : false)
+            container.setCollapsed(localStorage.getItem(storageKey) === 'true')
         } else {
             container.setCollapsed(collapsed)
         }

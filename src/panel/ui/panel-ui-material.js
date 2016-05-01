@@ -96,7 +96,7 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
                 var win = window.open(url, '_blank');
             }, [url]);
 
-            return;
+            
 
             function typeToUrl(sniffType) {
                 var url = 'http://threejs.org/docs/#Reference/Materials/' + sniffType;

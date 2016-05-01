@@ -34,7 +34,7 @@ UI.LockableVector2Row = function () {
     //		handle onChange
     //////////////////////////////////////////////////////////////////////////////////
     this.isLocked = function () {
-        return lock.getValue() === true ? true : false
+        return lock.getValue() === true
     };
     this.setLocked = function (value) {
         lock.setValue(value);

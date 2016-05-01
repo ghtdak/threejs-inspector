@@ -55,8 +55,8 @@ UI.FoldableSelect = function () {
     // Keybindings to support arrow navigation
     dom.addEventListener('keydown', function (event) {
         // check the keyCode
-        var isKeyUp = event.keyCode === 38 ? true : false;
-        var isKeyDown = event.keyCode === 40 ? true : false;
+        var isKeyUp = event.keyCode === 38;
+        var isKeyDown = event.keyCode === 40;
         if (isKeyUp === false && isKeyDown === false)    return;
 
         // scan all options in the proper direction until you got a visible one
@@ -74,7 +74,7 @@ UI.FoldableSelect = function () {
             nextIndex += direction
         }
 
-        return;
+        
 
         /**
          * @param {Number} index - the index of the option to check
@@ -95,7 +95,7 @@ UI.FoldableSelect = function () {
     // if return is pressed, toggle folded on the current element, if foldable
     dom.addEventListener('keydown', function (event) {
         // console.log('key enter', event.keyCode)
-        var isKeyEnter = event.keyCode === 13 ? true : false;
+        var isKeyEnter = event.keyCode === 13;
         if (isKeyEnter === false)    return;
 
         var optionElement = scope.optionElements[scope.selectedIndex];
@@ -185,7 +185,7 @@ UI.FoldableSelect.prototype.setStateJson = function (state) {
         var isFoldable = optionElement.classList.contains('foldable');
         if (isFoldable === false)    return;
 
-        var isUnfolded = state.unfoldedIndexes.indexOf(index) !== -1 ? true : false;
+        var isUnfolded = state.unfoldedIndexes.indexOf(index) !== -1;
         if (isUnfolded) {
             optionElement.classList.remove('folded')
         } else {

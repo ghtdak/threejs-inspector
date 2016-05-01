@@ -7,7 +7,7 @@ console.log('in devtools.js: devtools.js execution started. tabId', chrome.devto
 //              init IFF there is a inspectedWindow and IIF not a devtools.js
 //////////////////////////////////////////////////////////////////////////////
 
-var hasInspectedWindow = chrome.devtools.inspectedWindow.tabId !== undefined ? true : false;
+var hasInspectedWindow = chrome.devtools.inspectedWindow.tabId !== undefined;
 if (hasInspectedWindow === true) {
     // determine if the inspectedWindow is a devtools page
     chrome.devtools.inspectedWindow.eval("window.DevToolsAPI !== undefined ? true : false;", function (result, exceptionInfo) {

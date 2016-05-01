@@ -118,7 +118,7 @@ PanelWin3js.injectInspectedWinScripts = function () {
     });
 
 
-    return;
+    
 
     function readFile(url) {
         var request = new XMLHttpRequest();

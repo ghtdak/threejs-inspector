@@ -19,7 +19,7 @@ chrome.runtime.onConnect.addListener(function (panelConnection) {
         if (message.name == "panelPageCreated") {
             console.log('in background.js: creating panel connection for tabId', message.tabId);
             panelConnections[message.tabId] = panelConnection;
-            return;
+            
         } else {
             console.assert(false, 'unknown message', message.name)
         }

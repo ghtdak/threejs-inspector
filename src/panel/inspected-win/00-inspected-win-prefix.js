@@ -10,7 +10,7 @@
     //////////////////////////////////////////////////////////////////////////////////
     //                detection
     //////////////////////////////////////////////////////////////////////////////////
-    var hasTHREEJS = window.THREE !== undefined ? true : false;
+    var hasTHREEJS = window.THREE !== undefined;
     if (hasTHREEJS) {
         console.log('in 00-injected_script-init.js: three.js is present version', THREE.REVISION)
     } else {

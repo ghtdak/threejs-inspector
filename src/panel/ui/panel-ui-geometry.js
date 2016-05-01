@@ -91,7 +91,7 @@ PanelWin3js.PanelGeometry = function () {
                 var win = window.open(url, '_blank');
             }, [url]);
 
-            return;
+            
 
             function typeToUrl(className) {
                 if (className === 'Geometry' || className === 'BufferGeometry') {

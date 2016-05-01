@@ -38,8 +38,8 @@ UI.TextureRow = function () {
     //////////////////////////////////////////////////////////////////////////////////
 
     function isFolded() {
-        if (foldButton.dom.classList.contains('fa-minus'))    return false;
-        return true
+        return !foldButton.dom.classList.contains('fa-minus');
+        
     }
 
     function foldToggle() {

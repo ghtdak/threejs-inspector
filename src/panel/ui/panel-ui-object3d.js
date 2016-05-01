@@ -92,7 +92,7 @@ PanelWin3js.PanelObject3D = function () {
                 var win = window.open(url, '_blank');
             }, [url]);
 
-            return;
+            
 
             function typeToUrl(className) {
                 if (className.match(/Light$/) !== null) {
@@ -254,7 +254,7 @@ PanelWin3js.PanelObject3D = function () {
         if (selected.top !== undefined)    injectProperty('top', farRow.getValue());
         if (selected.bottom !== undefined)    injectProperty('bottom', farRow.getValue());
 
-        var isCamera = selected.near !== undefined ? true : false;
+        var isCamera = selected.near !== undefined;
         if (isCamera) {
             injectFunction(function (object3d) {
                 console.assert(object3d instanceof THREE.Camera);

@@ -678,11 +678,7 @@ UI.Checkbox = function (boolean) {
 UI.Checkbox.prototype = Object.create(UI.Element.prototype);
 
 UI.Checkbox.prototype.toggleValue = function () {
-    if (this.dom.checked) {
-        this.dom.checked = false
-    } else {
-        this.dom.checked = true
-    }
+    this.dom.checked = !this.dom.checked;
     return this
 };
 

@@ -38,7 +38,7 @@ var RafThrottler = function () {
         requestAnimationFrame = originalFct
     };
 
-    return;
+    
 
     function onAnimationFrame(callback, timestamp) {
         if (_this.preFunction !== null) {
