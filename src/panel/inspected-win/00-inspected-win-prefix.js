@@ -22,7 +22,6 @@
     //                Comments
     //////////////////////////////////////////////////////////////////////////////////
 
-    // declare namespace
-    var InspectedWin3js = {};
     // export namespace globally
-    window.InspectedWin3js = InspectedWin3js;
+    window.InspectedWin3js = {};
+});
