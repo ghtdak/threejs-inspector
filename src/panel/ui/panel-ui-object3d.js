@@ -95,16 +95,17 @@ PanelWin3js.PanelObject3D = function () {
             
 
             function typeToUrl(className) {
+                var url;
                 if (className.match(/Light$/) !== null) {
-                    var url = 'http://threejs.org/docs/#Reference/Lights/' + className
+                    url = 'http://threejs.org/docs/#Reference/Lights/' + className
                 } else if (className.match(/Camera$/) !== null) {
-                    var url = 'http://threejs.org/docs/#Reference/Cameras/' + className
+                    url = 'http://threejs.org/docs/#Reference/Cameras/' + className
                 } else if (className === 'Scene') {
-                    var url = 'http://threejs.org/docs/#Reference/Scenes/Scene'
+                    url = 'http://threejs.org/docs/#Reference/Scenes/Scene'
                 } else if (className === 'Object3D') {
-                    var url = 'http://threejs.org/docs/#Reference/Core/Object3D'
+                    url = 'http://threejs.org/docs/#Reference/Core/Object3D'
                 } else {
-                    var url = 'http://threejs.org/docs/#Reference/Objects/' + className
+                    url = 'http://threejs.org/docs/#Reference/Objects/' + className
                 }
                 return url
             }

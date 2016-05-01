@@ -23,7 +23,7 @@ PanelWin3js.PanelAbout = function () {
     domElement.style.color = '#aaa';
     container.dom.appendChild(domElement);
 
-    var domElement = document.createElement('div');
+    domElement = document.createElement('div');
     domElement.innerHTML = 'v ' + '1.9.0';
     domElement.style.color = '#888';
     container.dom.appendChild(domElement);
@@ -35,7 +35,7 @@ PanelWin3js.PanelAbout = function () {
     authorRow.innerHTML = 'Contact me on twitter ';
     container.dom.appendChild(authorRow);
 
-    var domElement = document.createElement('a');
+    domElement = document.createElement('a');
     domElement.href = 'https://twitter.com/jerome_etienne';
     domElement.innerHTML = '@jerome_etienne';
     domElement.target = '_blank';
@@ -47,7 +47,7 @@ PanelWin3js.PanelAbout = function () {
     var feedbackRow = document.createElement('div');
     feedbackRow.innerHTML = 'Chrome Store Extension: ';
     container.dom.appendChild(feedbackRow);
-    var domElement = document.createElement('a');
+    domElement = document.createElement('a');
     domElement.href = 'https://chrome.google.com/webstore/detail/threejs-inspector/dnhjfclbfhcbcdfpjaeacomhbdfjbebi?hl=en';
     domElement.innerHTML = 'three.js inspector';
     domElement.target = '_blank';
@@ -65,14 +65,17 @@ PanelWin3js.PanelAbout = function () {
     container.dom.appendChild(document.createElement('br'));
     container.dom.appendChild(document.createElement('br'));
 
-    var feedbackRow = document.createElement('div');
+    feedbackRow = document.createElement('div');
     feedbackRow.innerHTML = 'Bugs, ideas and feedback: ';
+    
     container.dom.appendChild(feedbackRow);
-    var domElement = document.createElement('a');
+    
+    domElement = document.createElement('a');
     domElement.href = 'https://github.com/jeromeetienne/threejs-inspector';
     domElement.innerHTML = 'GitHub page';
     domElement.target = '_blank';
     domElement.style.color = '#888';
+    
     feedbackRow.appendChild(domElement);
 
 
@@ -82,7 +85,7 @@ PanelWin3js.PanelAbout = function () {
     creditRow.innerHTML = 'forked of the excelent ';
     container.dom.appendChild(creditRow);
 
-    var domElement = document.createElement('a');
+    domElement = document.createElement('a');
     domElement.href = 'https://github.com/spite/ShaderEditorExtension';
     domElement.innerHTML = '@thespite\'s shader extension';
     domElement.target = '_blank';

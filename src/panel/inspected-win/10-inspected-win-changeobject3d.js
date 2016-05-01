@@ -22,7 +22,7 @@ InspectedWin3js.ChangeProperty = function (object3dUUID, property, value) {
             var indexInArray = matchArray === null ? -1 : parseInt(matchArray[2], 10);
             fieldName = matchArray[1]
         } else {
-            var indexInArray = -1
+            indexInArray = -1
         }
 
         if (fieldIndex === fields.length - 1) {

@@ -17,7 +17,9 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
     if (faceMaterialIndex === -1) {
         var container = new UI.Panel()
     } else {
-        var container = UI.CollapsiblePanelHelper.createContainer('Material ' + (faceMaterialIndex + 1), 'sidebarMaterial' + (faceMaterialIndex === -1 ? '' : '_' + faceMaterialIndex, true))
+        vcontainer = UI.CollapsiblePanelHelper.createContainer('Material ' + 
+            (faceMaterialIndex + 1), 'sidebarMaterial' + (faceMaterialIndex === -1 ? 
+                '' : '_' + faceMaterialIndex, true))
     }
     container.setDisplay('none');
 

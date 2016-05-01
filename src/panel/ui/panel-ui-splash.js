@@ -30,7 +30,7 @@ PanelWin3js.PanelSplash = function () {
     domElement.style.color = '#aaa';
     container.dom.appendChild(domElement);
 
-    var domElement = document.createElement('button');
+    domElement = document.createElement('button');
     domElement.innerHTML = 'Inspect';
     // domElement.style.position = 'absolute'
     // domElement.style.top = '0px'

@@ -81,16 +81,17 @@ UI.LockableVector3Row = function () {
         if (vector === undefined)    return;
         // honor lock
         if (row.isLocked() === true) {
+            var ratio;
             if (changeSrc === 'fromX') {
-                var ratio = valueX.getValue() / vector.x;
+                ratio = valueX.getValue() / vector.x;
                 valueY.setValue(valueY.getValue() * ratio);
                 valueZ.setValue(valueZ.getValue() * ratio);
             } else if (changeSrc === 'fromY') {
-                var ratio = valueY.getValue() / vector.y;
+                ratio = valueY.getValue() / vector.y;
                 valueX.setValue(valueX.getValue() * ratio);
                 valueZ.setValue(valueZ.getValue() * ratio);
             } else if (changeSrc === 'fromZ') {
-                var ratio = valueZ.getValue() / vector.z;
+                ratio = valueZ.getValue() / vector.z;
                 valueY.setValue(valueY.getValue() * ratio);
                 valueX.setValue(valueX.getValue() * ratio);
             } else if (changeSrc === '') {

@@ -94,10 +94,11 @@ PanelWin3js.PanelGeometry = function () {
             
 
             function typeToUrl(className) {
+                var url;
                 if (className === 'Geometry' || className === 'BufferGeometry') {
-                    var url = 'http://threejs.org/docs/#Reference/Core/' + className
+                    url = 'http://threejs.org/docs/#Reference/Core/' + className
                 } else {
-                    var url = 'http://threejs.org/docs/#Reference/Extras.Geometries/' + className
+                    url = 'http://threejs.org/docs/#Reference/Extras.Geometries/' + className
                 }
                 return url
             }

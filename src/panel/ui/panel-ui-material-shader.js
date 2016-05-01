@@ -87,15 +87,16 @@ PanelWin3js.PanelMaterialShader = function (faceMaterialIndex) {
                 var data = material.uniforms[name];
                 // console.log('materialShader', faceMaterialIndex)
                 // console.dir(data)
+                var numberRow;
                 if (data.type === 'f') {
-                    var numberRow = new UI.NumberRow();
+                    numberRow = new UI.NumberRow();
                     numberRow.setLabel(name).setValue(data.value);
                     container.add(numberRow);
                     numberRow.onChange(function () {
                         injectProperty(propertyPrefix + '.uniforms.' + name + '.value', numberRow.getValue())
                     })
                 } else if (data.type === 'i') {
-                    var numberRow = new UI.NumberRow();
+                    numberRow = new UI.NumberRow();
                     numberRow.value.setPrecision(0);
                     numberRow.setLabel(name).setValue(data.value);
                     container.add(numberRow);
@@ -107,8 +108,10 @@ PanelWin3js.PanelMaterialShader = function (faceMaterialIndex) {
                     vector2Row.setLabel(name).updateUI(data.value);
                     container.add(vector2Row);
                     vector2Row.onChange(function () {
-                        injectProperty(propertyPrefix + '.uniforms.' + name + '.value.x', vector2Row.valueX.getValue());
-                        injectProperty(propertyPrefix + '.uniforms.' + name + '.value.y', vector2Row.valueY.getValue())
+                        injectProperty(propertyPrefix + '.uniforms.' + name + 
+                            '.value.x', vector2Row.valueX.getValue());
+                        injectProperty(propertyPrefix + '.uniforms.' + name + 
+                            '.value.y', vector2Row.valueY.getValue())
                     })
                 } else if (data.type === 'v3') {
                     var vector3Row = new UI.Vector3Row();

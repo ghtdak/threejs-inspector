@@ -76,11 +76,12 @@ UI.LockableVector2Row = function () {
         // honor lock
         if (row.isLocked() === true) {
             console.log('update locked vector2', changeSrc);
+            var ratio;
             if (changeSrc === 'fromX') {
-                var ratio = valueX.getValue() / vector.x;
+                ratio = valueX.getValue() / vector.x;
                 valueY.setValue(valueY.getValue() * ratio);
             } else if (changeSrc === 'fromY') {
-                var ratio = valueY.getValue() / vector.y;
+                ratio = valueY.getValue() / vector.y;
                 valueX.setValue(valueX.getValue() * ratio);
             } else if (changeSrc === '') {
             } else    console.assert(false)
