@@ -10,12 +10,10 @@ UI.LockableVector2Row = function () {
     // build the values
     var changeSrc = '';
     var valueX = new UI.Number().setWidth('50px').setColor('red').onChange(function () {
-        changeSrc = 'fromX';
         dispatchChange();
         changeSrc = ''
     });
     var valueY = new UI.Number().setWidth('50px').setColor('green').onChange(function () {
-        changeSrc = 'fromY';
         dispatchChange();
         changeSrc = ''
     });

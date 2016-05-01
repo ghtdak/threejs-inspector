@@ -78,7 +78,6 @@ PanelWin3js.PanelObject3D = function () {
     //		handle help
     //////////////////////////////////////////////////////////////////////////////////
 
-    ;
     (function () {
         var helpButton = new UI.FontAwesomeIcon().setTitle('Open three.js documentation');
         helpButton.dom.classList.add('fa-info-circle');

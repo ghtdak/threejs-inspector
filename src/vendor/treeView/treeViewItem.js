@@ -44,7 +44,6 @@ function TreeViewItem(label, id) {
     labelElement.textContent = this.label;
     containerDiv.appendChild(labelElement);
 
-    ;
     (function () {
         var visibilityIcon = document.createElement('i');
         visibilityIcon.setAttribute('title', 'Toggle visibility of this object');

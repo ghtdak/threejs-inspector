@@ -91,7 +91,7 @@ UI.TabsHelper = {
 
             // remove all other active
             for (var i = 0; i < headers.children.length; i++) {
-                var child = headers.children[i];
+                
                 headers.children[i].classList.remove('active');
                 tabs.children[i].classList.remove('active')
             }
@@ -127,7 +127,7 @@ UI.CollapsiblePanelHelper = {
         var container = new UI.CollapsiblePanel();
         // to cache layout state
         storageKey = 'layoutCollapsed_' + title;
-        var itemValue = localStorage.getItem(storageKey);
+        
         if (localStorage.getItem(storageKey) !== null) {
             container.setCollapsed(localStorage.getItem(storageKey) === 'true')
         } else {
