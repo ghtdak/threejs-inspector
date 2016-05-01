@@ -218,9 +218,10 @@ UI.CollapsiblePanel.prototype.addStatic = function () {
 UI.CollapsiblePanel.prototype.removeStatic = UI.Panel.prototype.remove;
 
 UI.CollapsiblePanel.prototype.clearStatic = function () {
-    this.dom.childNodes.forEach(function (child) {
-        if (child !== this.content) {
-            this.dom.removeChild(child);
+    var _this = this;
+    _this.dom.childNodes.forEach(function (child) {
+        if (child !== _this.content) {
+            _this.dom.removeChild(child);
         }
     });
 };
