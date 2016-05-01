@@ -218,17 +218,11 @@ UI.CollapsiblePanel.prototype.addStatic = function () {
 UI.CollapsiblePanel.prototype.removeStatic = UI.Panel.prototype.remove;
 
 UI.CollapsiblePanel.prototype.clearStatic = function () {
-
     this.dom.childNodes.forEach(function (child) {
-
         if (child !== this.content) {
-
             this.dom.removeChild(child);
-
         }
-
     });
-
 };
 
 UI.CollapsiblePanel.prototype.add = function () {
@@ -355,7 +349,7 @@ UI.Input = function () {
 
     UI.Element.call(this);
 
-    
+
 
     var dom = document.createElement('input');
     dom.className = 'Input';
@@ -397,7 +391,7 @@ UI.TextArea = function () {
 
     UI.Element.call(this);
 
-    
+
 
     var dom = document.createElement('textarea');
     dom.className = 'TextArea';
@@ -439,7 +433,7 @@ UI.Select = function () {
 
     UI.Element.call(this);
 
-    
+
 
     var dom = document.createElement('select');
     dom.className = 'Select';
@@ -662,7 +656,7 @@ UI.Checkbox = function (boolean) {
 
     UI.Element.call(this);
 
-    
+
 
     var dom = document.createElement('input');
     dom.className = 'Checkbox';
@@ -707,7 +701,7 @@ UI.Color = function () {
 
     UI.Element.call(this);
 
-    
+
 
     var dom = document.createElement('input');
     dom.className = 'Color';
@@ -1135,7 +1129,7 @@ UI.Button = function (value) {
 
     UI.Element.call(this);
 
-    
+
 
     var dom = document.createElement('button');
     dom.className = 'Button';
