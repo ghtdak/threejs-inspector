@@ -22,12 +22,11 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
         container = UI.CollapsiblePanelHelper.createContainer(
             'Material ' + (faceMaterialIndex + 1),
             'sidebarMaterial' +
-            (faceMaterialIndex === -1 ?
-                '' : '_' + faceMaterialIndex,
-                true
-            )
+            (faceMaterialIndex === -1 ? '' : '_' + faceMaterialIndex),
+            true
         )
     }
+
     container.setDisplay('none');
 
     //////////////////////////////////////////////////////////////////////////////////

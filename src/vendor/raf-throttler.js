@@ -4,7 +4,7 @@
  * @constructor
  */
 var RafThrottler = function () {
-    var originalFct = requestAnimationFrame;
+    var originalFct = window.requestAnimationFrame;
     var _this = this;
     this.preFunction = null;
     this.postFunction = null;

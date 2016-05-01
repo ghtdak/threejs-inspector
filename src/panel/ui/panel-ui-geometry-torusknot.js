@@ -6,7 +6,7 @@ var PanelWin3js = PanelWin3js || {};
  * @constructor
  */
 PanelWin3js.PanelGeometryTorusKnot = function (object3d) {
-    var editor = PanelWin3js.editor;
+    
     
 
     var container = new UI.Panel();

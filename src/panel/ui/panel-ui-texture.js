@@ -6,7 +6,7 @@ var PanelWin3js = PanelWin3js || {};
  * @constructor
  */
 PanelWin3js.PanelTexture = function (propertyPrefix) {
-    var editor = PanelWin3js.editor;
+    
 
     
 
