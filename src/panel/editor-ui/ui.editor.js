@@ -126,7 +126,7 @@ UI.CollapsiblePanelHelper = {
     createContainer: function (title, storageKey, collapsed) {
         var container = new UI.CollapsiblePanel();
         // to cache layout state
-        var storageKey = 'layoutCollapsed_' + title;
+        storageKey = 'layoutCollapsed_' + title;
         var itemValue = localStorage.getItem(storageKey);
         if (localStorage.getItem(storageKey) !== null) {
             container.setCollapsed(localStorage.getItem(storageKey) === 'true')
