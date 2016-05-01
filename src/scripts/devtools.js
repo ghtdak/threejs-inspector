@@ -11,8 +11,7 @@ var hasInspectedWindow = chrome.devtools.inspectedWindow.tabId !== undefined;
 if (hasInspectedWindow === true) {
     // determine if the inspectedWindow is a devtools page
     chrome.devtools.inspectedWindow.eval("window.DevToolsAPI !== undefined ? true : false;", function (result, exceptionInfo) {
-        var devtoolsInParent = result;
-        if (devtoolsInParent === false) {
+        if (result === false) {
             initPanel();
         } else {
             console.log('in devtools.js: inspected page is a devtools page, so not initializing three.js extension')

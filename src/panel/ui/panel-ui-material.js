@@ -106,8 +106,7 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
 
 
             function typeToUrl(sniffType) {
-                var url = 'http://threejs.org/docs/#Reference/Materials/' + sniffType;
-                return url
+                return 'http://threejs.org/docs/#Reference/Materials/' + sniffType;
             }
         })
     })();
@@ -136,8 +135,9 @@ PanelWin3js.PanelMaterial = function (faceMaterialIndex) {
             }, ['map', faceMaterialIndex]);
         } else if (value === 'exportInConsole') {
             PanelWin3js.functionOnObject3d(function (object3d, faceMaterialIndex) {
-                var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex];
-                window.$material = material;
+                window.$material = faceMaterialIndex === -1 ? 
+                    object3d.material : 
+                    object3d.material.materials[faceMaterialIndex];
                 console.log('three.js inspector: Material exported as $material');
                 console.dir($material)
             }, [faceMaterialIndex]);

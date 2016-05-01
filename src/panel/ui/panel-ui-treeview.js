@@ -77,8 +77,7 @@ PanelWin3js.PanelTreeView = function () {
     };
     treeView.onExport = function (object3dUuid) {
         PanelWin3js.plainFunction(function (uuid) {
-            var object3d = InspectedWin3js.getObjectByUuid(uuid);
-            window.$object3d = object3d;
+            window.$object3d = InspectedWin3js.getObjectByUuid(uuid);
             console.log('in panel-ui-treeview.js: Object3D exported as $object3d');
             console.dir($object3d)
         }, [object3dUuid])

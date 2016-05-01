@@ -125,7 +125,6 @@ PanelWin3js.injectInspectedWinScripts = function () {
         request.open('GET', url, false);  // `false` makes the request synchronous
         request.send(null);
         console.assert(request.status === 200);
-        var content = request.responseText;
-        return content
+        return request.responseText;
     }
 };

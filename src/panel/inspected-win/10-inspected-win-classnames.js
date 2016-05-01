@@ -6,8 +6,7 @@ InspectedWin3js._threeJSClassNames = [];
 InspectedWin3js.getThreeJSClassName = function (object) {
     for (var j in InspectedWin3js._threeJSClassNames) {
         if (object instanceof THREE[InspectedWin3js._threeJSClassNames[j]]) {
-            var result = InspectedWin3js._threeJSClassNames[j];
-            return result;
+            return InspectedWin3js._threeJSClassNames[j];
         }
     }
 

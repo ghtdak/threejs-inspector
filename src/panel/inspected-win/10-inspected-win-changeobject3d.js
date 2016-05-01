@@ -9,9 +9,7 @@ InspectedWin3js.ChangeProperty = function (object3dUUID, property, value) {
 
     // @TODO change the API of this function....
 
-    var object3d = InspectedWin3js.getObjectByUuid(object3dUUID);
-
-    var curObject = object3d;
+    var curObject = InspectedWin3js.getObjectByUuid(object3dUUID);
 
     var fields = property.split('.');
     for (var fieldIndex = 0; fieldIndex < fields.length; fieldIndex++) {

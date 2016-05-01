@@ -163,12 +163,11 @@ UI.FoldableSelect.prototype.getStateJson = function () {
         unfoldedIndexes.push(index)
     });
     // build the state to return
-    var state = {
+    return {
         unfoldedIndexes: unfoldedIndexes,
         selectedValue:   foldableSelect.getValue()
     };
     // actually return the result
-    return state
 };
 
 /**

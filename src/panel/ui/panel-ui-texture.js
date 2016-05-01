@@ -45,8 +45,7 @@ PanelWin3js.PanelTexture = function (propertyPrefix) {
             
         } else if (value === 'exportInConsole') {
             PanelWin3js.functionOnObject3d(function (object3d, propertyPrefix) {
-                var texture = eval('object3d.' + propertyPrefix);
-                window.$texture = texture;
+                window.$texture = eval('object3d.' + propertyPrefix);
                 console.log('three.js inspector: Material exported as $texture');
                 console.dir($texture)
             }, [propertyPrefix]);

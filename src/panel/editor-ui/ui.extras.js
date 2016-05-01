@@ -11,8 +11,7 @@
 UI.Image = function (url) {
     UI.Element.call(this);
 
-    var dom = document.createElement('img');
-    this.dom = dom;
+    this.dom = document.createElement('img');
 
     if (url !== undefined) {
         this.load(url)

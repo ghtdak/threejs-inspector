@@ -3,8 +3,7 @@ UI.FileUpload = function () {
 
     UI.Element.call(this);
 
-    var dom = document.createElement('span');
-    fileUpload.dom = dom;
+    fileUpload.dom = document.createElement('span');
 
     //////////////////////////////////////////////////////////////////////////////////
     //		callback to notify

@@ -58,8 +58,7 @@ UI.TabsHelper = {
         tabContainer.isEnabled = function (childIndex) {
             console.assert(childIndex < headers.children.length);
 
-            var isEnabled = !headers.children[childIndex].classList.contains('disabled');
-            return isEnabled
+            return !headers.children[childIndex].classList.contains('disabled');
         };
         //////////////////////////////////////////////////////////////////////////////////
         //		Comment								//
@@ -79,8 +78,7 @@ UI.TabsHelper = {
             console.assert(childIndex < headers.children.length);
             console.assert(tabs.children.length === headers.children.length);
 
-            var isActive = !!headers.children[childIndex].classList.contains('active');
-            return isActive
+            return !!headers.children[childIndex].classList.contains('active');
         };
 
         tabContainer.toggleActive = function (childIndex) {
