@@ -17,13 +17,10 @@
 .contextMenu ul{
 	margin		: 0px;
 	padding		: 0px;
-	list-style	: none;
-	list-style-type	: none;
+	list-style: none none;
 }
 .contextMenu li{
-	padding		: 8px;
-	padding-left	: 15px;
-	padding-right	: 15px;
+	padding: 8px 15px;
 }
 .contextMenu li:hover {
 	background-color: #153C5E;
