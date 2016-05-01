@@ -4,11 +4,11 @@
  * @constructor
  */
 var RafThrottler = function () {
-    var originalFct = requestAnimationFrame
-    var _this = this
-    this.preFunction = null
-    this.postFunction = null
-    this.fps = -1	// -1 is no throttle, === 0 for still, > 0 is number of frame per second
+    var originalFct = requestAnimationFrame;
+    var _this = this;
+    this.preFunction = null;
+    this.postFunction = null;
+    this.fps = -1;	// -1 is no throttle, === 0 for still, > 0 is number of frame per second
 
     // 
     requestAnimationFrame = function (callback) {
@@ -22,33 +22,33 @@ var RafThrottler = function () {
             }, 1000 / _this.fps)
         } else if (_this.fps === 0) {
             var intervalId = setInterval(function () {
-                if (_this.fps === 0)    return
-                clearInterval(intervalId)
+                if (_this.fps === 0)    return;
+                clearInterval(intervalId);
                 onAnimationFrame(callback, performance.now())
             }, 100)
         } else {
             console.assert(false)
         }
-    }
+    };
 
     /**
      * restore the original requestAnimationFrame function
      */
     this.restore = function () {
         requestAnimationFrame = originalFct
-    }
+    };
 
-    return
+    return;
 
     function onAnimationFrame(callback, timestamp) {
         if (_this.preFunction !== null) {
             _this.preFunction(timestamp)
         }
 
-        callback(timestamp)
+        callback(timestamp);
 
         if (_this.postFunction !== null) {
             _this.postFunction(timestamp)
         }
     }
-}
+};

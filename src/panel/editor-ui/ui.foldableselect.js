@@ -5,7 +5,7 @@ UI.FoldableSelect = function () {
     UI.Element.call(this);
 
     var scope = this;
-    var foldableSelect = this
+    var foldableSelect = this;
 
     var dom = document.createElement('div');
     dom.className = 'FoldableSelect';
@@ -35,7 +35,7 @@ UI.FoldableSelect = function () {
      */
     foldableSelect.signals = {
         stateChange: new SIGNALS.Signal()
-    }
+    };
 
     ////////////////////////////////////////////////////////////////////////
     //	Handle keyboard
@@ -55,15 +55,15 @@ UI.FoldableSelect = function () {
     // Keybindings to support arrow navigation
     dom.addEventListener('keydown', function (event) {
         // check the keyCode
-        var isKeyUp = event.keyCode === 38 ? true : false
-        var isKeyDown = event.keyCode === 40 ? true : false
-        if (isKeyUp === false && isKeyDown === false)    return
+        var isKeyUp = event.keyCode === 38 ? true : false;
+        var isKeyDown = event.keyCode === 40 ? true : false;
+        if (isKeyUp === false && isKeyDown === false)    return;
 
         // scan all options in the proper direction until you got a visible one
-        var direction = isKeyUp ? -1 : +1
-        var nextIndex = scope.selectedIndex + direction
+        var direction = isKeyUp ? -1 : +1;
+        var nextIndex = scope.selectedIndex + direction;
         while (nextIndex >= 0 && nextIndex < scope.optionElements.length) {
-            var optionElement = scope.optionElements[nextIndex]
+            var optionElement = scope.optionElements[nextIndex];
 
             if (isIndexVisible(nextIndex) === true) {
                 // Highlight selected dom elem and scroll parent if needed
@@ -74,15 +74,15 @@ UI.FoldableSelect = function () {
             nextIndex += direction
         }
 
-        return
+        return;
 
         /**
          * @param {Number} index - the index of the option to check
          * @return {boolean} true if it is visible, false otherwise
          */
         function isIndexVisible(index) {
-            var domElement = scope.optionElements[index]
-            domElement = domElement.parentNode
+            var domElement = scope.optionElements[index];
+            domElement = domElement.parentNode;
             while (domElement.classList.contains('FoldableSelect') === false) {
                 if (domElement.classList.contains('folded')) {
                     return false
@@ -95,12 +95,12 @@ UI.FoldableSelect = function () {
     // if return is pressed, toggle folded on the current element, if foldable
     dom.addEventListener('keydown', function (event) {
         // console.log('key enter', event.keyCode)
-        var isKeyEnter = event.keyCode === 13 ? true : false
+        var isKeyEnter = event.keyCode === 13 ? true : false;
         if (isKeyEnter === false)    return;
 
-        var optionElement = scope.optionElements[scope.selectedIndex]
+        var optionElement = scope.optionElements[scope.selectedIndex];
         if (optionElement.classList.contains('foldable')) {
-            optionElement.classList.toggle('folded')
+            optionElement.classList.toggle('folded');
             foldableSelect.signals.stateChange.dispatch()
         }
     }, false);
@@ -127,17 +127,17 @@ UI.FoldableSelect.prototype = Object.create(UI.Element.prototype);
 
 UI.FoldableSelect.prototype.foldAll = function () {
     this.optionElements.forEach(function (domElement) {
-        if (domElement.classList.contains('foldable') === false)    return
+        if (domElement.classList.contains('foldable') === false)    return;
         domElement.classList.add('folded')
     })
-}
+};
 
 UI.FoldableSelect.prototype.expandAll = function () {
     this.optionElements.forEach(function (domElement) {
-        if (domElement.classList.contains('foldable') === false)    return
+        if (domElement.classList.contains('foldable') === false)    return;
         domElement.classList.remove('folded')
     })
-}
+};
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -150,26 +150,26 @@ UI.FoldableSelect.prototype.expandAll = function () {
  * @return {Object} the json object
  */
 UI.FoldableSelect.prototype.getStateJson = function () {
-    var foldableSelect = this
+    var foldableSelect = this;
     // determine the unfoldedIndexes
-    var unfoldedIndexes = []
+    var unfoldedIndexes = [];
     foldableSelect.optionElements.forEach(function (optionElement, index) {
-        var isFoldable = optionElement.classList.contains('foldable')
-        if (isFoldable === false)    return
+        var isFoldable = optionElement.classList.contains('foldable');
+        if (isFoldable === false)    return;
 
-        var isFolded = optionElement.classList.contains('folded')
-        if (isFolded === true)    return
+        var isFolded = optionElement.classList.contains('folded');
+        if (isFolded === true)    return;
 
         unfoldedIndexes.push(index)
-    })
+    });
     // build the state to return
     var state = {
         unfoldedIndexes: unfoldedIndexes,
         selectedValue:   foldableSelect.getValue(),
-    }
+    };
     // actually return the result
     return state
-}
+};
 
 /**
  * return the state to the one it was wehn .getStateJson() got called.
@@ -178,23 +178,23 @@ UI.FoldableSelect.prototype.getStateJson = function () {
  * @param {Object} state - the json object
  */
 UI.FoldableSelect.prototype.setStateJson = function (state) {
-    var foldableSelect = this
+    var foldableSelect = this;
     // honor state.unfoldedIndexes
-    var foldableSelect = this
+    var foldableSelect = this;
     foldableSelect.optionElements.forEach(function (optionElement, index) {
-        var isFoldable = optionElement.classList.contains('foldable')
-        if (isFoldable === false)    return
+        var isFoldable = optionElement.classList.contains('foldable');
+        if (isFoldable === false)    return;
 
-        var isUnfolded = state.unfoldedIndexes.indexOf(index) !== -1 ? true : false
+        var isUnfolded = state.unfoldedIndexes.indexOf(index) !== -1 ? true : false;
         if (isUnfolded) {
             optionElement.classList.remove('folded')
         } else {
             optionElement.classList.add('folded')
         }
-    })
+    });
     // honor the state.unfoldedIndexes
     foldableSelect.setValue(state.selectedValue)
-}
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -203,7 +203,7 @@ UI.FoldableSelect.prototype.setStateJson = function (state) {
 UI.FoldableSelect.prototype.setOptions = function (options) {
 
     var scope = this;
-    var foldableSelect = this
+    var foldableSelect = this;
     var changeEvent = document.createEvent('HTMLEvents');
     changeEvent.initEvent('change', true, true);
     var dblclickEvent = document.createEvent('HTMLEvents');
@@ -220,28 +220,28 @@ UI.FoldableSelect.prototype.setOptions = function (options) {
     ////////////////////////////////////////////////////////////////////////
     //
     ////////////////////////////////////////////////////////////////////////
-    var children = pushOptions(options, '')
+    var children = pushOptions(options, '');
     children.forEach(function (child) {
         scope.dom.appendChild(child)
-    })
-    return scope
+    });
+    return scope;
 
     ////////////////////////////////////////////////////////////////////////
     //
     ////////////////////////////////////////////////////////////////////////
     function pushOptions(options, pad) {
-        var children = []
+        var children = [];
         options.forEach(function (option) {
 
             var container = document.createElement('div');
-            container.classList.add('optionContainer')
+            container.classList.add('optionContainer');
             container.value = option.value;
 
             // store it
             scope.optionElements.push(container);
 
             if (option.foldable === true) {
-                container.classList.add('foldable')
+                container.classList.add('foldable');
                 container.classList.add('folded')
             }
 
@@ -251,8 +251,8 @@ UI.FoldableSelect.prototype.setOptions = function (options) {
 
             var prefix = document.createElement('span');
             prefix.className = 'prefix';
-            prefix.innerHTML = pad
-            if (option.foldable === true)    prefix.setAttribute('title', 'fold/unfold')
+            prefix.innerHTML = pad;
+            if (option.foldable === true)    prefix.setAttribute('title', 'fold/unfold');
 
 
             optionValue.insertBefore(prefix, optionValue.firstChild);
@@ -262,38 +262,38 @@ UI.FoldableSelect.prototype.setOptions = function (options) {
             //////////////////////////////////////////////////////////////////////////////////
             // Click on value => select the option
             optionValue.addEventListener('click', function (event) {
-                if (container.value === scope.getValue())    return
+                if (container.value === scope.getValue())    return;
                 scope.setValue(container.value);
                 scope.dom.dispatchEvent(changeEvent);
-                foldableSelect.signals.stateChange.dispatch()
+                foldableSelect.signals.stateChange.dispatch();
                 event.stopPropagation()
             }, false);
             // double click on value => if foldable, toggle fold on it
             optionValue.addEventListener('dblclick', function (event) {
                 if (container.classList.contains('foldable')) {
-                    container.classList.toggle('folded')
+                    container.classList.toggle('folded');
                     foldableSelect.signals.stateChange.dispatch()
                 }
                 scope.dom.dispatchEvent(dblclickEvent);
             }, false);
             // single click on prefix => if foldable, toggle fold on it
             prefix.addEventListener('click', function (event) {
-                if (container.classList.contains('foldable') === false)    return
-                var scrollTop = scope.dom.scrollTop
-                container.classList.toggle('folded')
-                foldableSelect.signals.stateChange.dispatch()
+                if (container.classList.contains('foldable') === false)    return;
+                var scrollTop = scope.dom.scrollTop;
+                container.classList.toggle('folded');
+                foldableSelect.signals.stateChange.dispatch();
                 scope.dom.scrollTop = scrollTop
             }, false);
 
 
-            container.appendChild(optionValue)
+            container.appendChild(optionValue);
 
             // go on with children now
             if (option.children.length > 0) {
                 var childrenContainer = document.createElement('div');
-                childrenContainer.classList.add('optionChildren')
-                container.appendChild(childrenContainer)
-                var childrenEl = pushOptions(option.children, pad + '&nbsp;&nbsp;&nbsp;')
+                childrenContainer.classList.add('optionChildren');
+                container.appendChild(childrenContainer);
+                var childrenEl = pushOptions(option.children, pad + '&nbsp;&nbsp;&nbsp;');
                 childrenEl.forEach(function (child) {
                     childrenContainer.appendChild(child)
                 })
@@ -301,7 +301,7 @@ UI.FoldableSelect.prototype.setOptions = function (options) {
 
             // add the container to the scope.dom
             children.push(container);
-        })
+        });
 
         return children
     }
@@ -330,7 +330,7 @@ UI.FoldableSelect.prototype.setValue = function (value) {
             element.classList.add('active');
 
             // scroll into view
-            var element = element.querySelector('.optionValue')
+            var element = element.querySelector('.optionValue');
             var y = element.offsetTop - this.dom.offsetTop;
             var bottomY = y + element.offsetHeight;
             var minScroll = bottomY - this.dom.offsetHeight;

@@ -17,17 +17,17 @@ UI.Element.prototype = {
 
         // jme- changed to avoid removing other classes
         // this.dom.className = name;
-        this.dom.classList.add(name)
+        this.dom.classList.add(name);
 
         return this;
 
     },
     addClass:    function (name) {
-        this.dom.classList.add(name)
+        this.dom.classList.add(name);
         return this;
     },
     removeClass: function (name) {
-        this.dom.classList.remove(name)
+        this.dom.classList.remove(name);
         return this;
     },
 
@@ -56,7 +56,7 @@ UI.Element.prototype = {
 
     removeDisabled: function () {
 
-        this.dom.removeAttribute('disabled')
+        this.dom.removeAttribute('disabled');
 
         return this;
 
@@ -78,7 +78,7 @@ UI.Element.prototype = {
 
     }
 
-}
+};
 
 // properties
 
@@ -196,7 +196,7 @@ UI.CollapsiblePanel = function () {
     this.dom.appendChild(this.content);
 
     this.isCollapsed = false;
-    this.setCollapsed(this.isCollapsed)
+    this.setCollapsed(this.isCollapsed);
     return this;
 
 };
@@ -814,8 +814,8 @@ UI.Number = function (number) {
 
         onMouseDownValue = parseFloat(dom.value);
 
-        prevPointer.x = event.clientX
-        prevPointer.y = event.clientY
+        prevPointer.x = event.clientX;
+        prevPointer.y = event.clientY;
 
         document.addEventListener('mousemove', onMouseMove, false);
         document.addEventListener('mouseup', onMouseUp, false);
@@ -826,15 +826,15 @@ UI.Number = function (number) {
 
         var currentValue = scope.value;
 
-        pointer.x = event.clientX
-        pointer.y = event.clientY
+        pointer.x = event.clientX;
+        pointer.y = event.clientY;
 
         distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
 
-        var accelerator = 50
-        if (event.shiftKey)    accelerator /= 10
+        var accelerator = 50;
+        if (event.shiftKey)    accelerator /= 10;
         // cant be ctrlKey - ctrlKey trigger a browser popup menu in input
-        if (event.metaKey)    accelerator /= 100
+        if (event.metaKey)    accelerator /= 100;
 
         var number = onMouseDownValue + ( distance / accelerator ) * scope.step;
 
@@ -843,7 +843,7 @@ UI.Number = function (number) {
 
         if (currentValue !== dom.value) dom.dispatchEvent(changeEvent);
 
-        prevPointer.x = event.clientX
+        prevPointer.x = event.clientX;
         prevPointer.y = event.clientY
     };
 

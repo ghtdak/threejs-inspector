@@ -2,6 +2,6 @@
 //                Comments
 //////////////////////////////////////////////////////////////////////////////////
 
-console.log('in 50-injected_script-suffix.js: running')
+console.log('in 50-injected_script-suffix.js: running');
 })
-()
+();

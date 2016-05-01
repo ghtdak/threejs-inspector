@@ -9,17 +9,17 @@ InspectedWin3js.ChangeProperty = function (object3dUUID, property, value) {
 
     // @TODO change the API of this function....
 
-    var object3d = InspectedWin3js.getObjectByUuid(object3dUUID)
+    var object3d = InspectedWin3js.getObjectByUuid(object3dUUID);
 
     var curObject = object3d;
 
     var fields = property.split('.');
     for (var fieldIndex = 0; fieldIndex < fields.length; fieldIndex++) {
-        var fieldName = fields[fieldIndex]
+        var fieldName = fields[fieldIndex];
 
-        var matchArray = fieldName.match(/(.*)\[(\d+)\]/)
+        var matchArray = fieldName.match(/(.*)\[(\d+)\]/);
         if (matchArray !== null) {
-            var indexInArray = matchArray === null ? -1 : parseInt(matchArray[2], 10)
+            var indexInArray = matchArray === null ? -1 : parseInt(matchArray[2], 10);
             fieldName = matchArray[1]
         } else {
             var indexInArray = -1
@@ -33,7 +33,7 @@ InspectedWin3js.ChangeProperty = function (object3dUUID, property, value) {
             else                curObject = curObject[fieldName][indexInArray];
         }
     }
-}
+};
 /**
  * Call a function on a object3d
  *
@@ -43,10 +43,10 @@ InspectedWin3js.ChangeProperty = function (object3dUUID, property, value) {
  */
 InspectedWin3js.ChangeObject3dFunction = function (object3dUUID, fct, args) {
     // console.log('in 10-injected_script-changeobject3d.js: ChangeObject3dFunction', fct.toString(), args)
-    var object3d = InspectedWin3js.getObjectByUuid(object3dUUID)
-    console.assert(object3d instanceof THREE.Object3D)
-    var newArgs = args.slice(0)
-    newArgs.unshift(object3d)
+    var object3d = InspectedWin3js.getObjectByUuid(object3dUUID);
+    console.assert(object3d instanceof THREE.Object3D);
+    var newArgs = args.slice(0);
+    newArgs.unshift(object3d);
 
     fct.apply(null, newArgs)
-}       
+};       

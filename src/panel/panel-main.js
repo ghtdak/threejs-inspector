@@ -1,4 +1,4 @@
-var PanelWin3js = PanelWin3js || {}
+var PanelWin3js = PanelWin3js || {};
 
 console.log("in panel.js: start running");
 
@@ -10,16 +10,16 @@ console.log("in panel.js: start running");
 var SIGNALS = signals;
 delete window.signals;
 
-PanelWin3js.editor = new Editor()
+PanelWin3js.editor = new Editor();
 
 //////////////////////////////////////////////////////////////////////////////
 //              connect background page
 //////////////////////////////////////////////////////////////////////////////
 
-PanelWin3js.initBackgroundConnection()
+PanelWin3js.initBackgroundConnection();
 // PanelWin3js.initLeftSideBar()
 // PanelWin3js.initRightSideBar()
-PanelWin3js.initSplash()
+PanelWin3js.initSplash();
 
 //////////////////////////////////////////////////////////////////////////////////
 //                Comments

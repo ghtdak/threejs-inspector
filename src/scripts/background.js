@@ -1,23 +1,23 @@
-console.log('INSPECTING background page')
-console.log('THREE.js extension started at', new Date)
-console.log('===================================')
+console.log('INSPECTING background page');
+console.log('THREE.js extension started at', new Date);
+console.log('===================================');
 
 //////////////////////////////////////////////////////////////////////////////////
 //                Comments
 //////////////////////////////////////////////////////////////////////////////////
-console.log('in background.js: start executing')
+console.log('in background.js: start executing');
 
 // background.js
 var panelConnections = {};
 
 chrome.runtime.onConnect.addListener(function (panelConnection) {
     var onMessage = function (message, sender, sendResponse) {
-        console.log('in background.js: received message', message)
+        console.log('in background.js: received message', message);
 
         // The original connection event doesn't include the tab ID of the
         // DevTools page, so we need to send it explicitly.
         if (message.name == "panelPageCreated") {
-            console.log('in background.js: creating panel connection for tabId', message.tabId)
+            console.log('in background.js: creating panel connection for tabId', message.tabId);
             panelConnections[message.tabId] = panelConnection;
             return;
         } else {
@@ -25,7 +25,7 @@ chrome.runtime.onConnect.addListener(function (panelConnection) {
         }
 
         // other message handling
-    }
+    };
 
     // Listen to messages sent from the DevTools page
     panelConnection.onMessage.addListener(onMessage);
@@ -37,8 +37,8 @@ chrome.runtime.onConnect.addListener(function (panelConnection) {
         var tabs = Object.keys(panelConnections);
         for (var i = 0, len = tabs.length; i < len; i++) {
             if (panelConnections[tabs[i]] == panelConnection) {
-                console.log('in background.js: deleting panel connection for tabId', tabs[i])
-                delete panelConnections[tabs[i]]
+                console.log('in background.js: deleting panel connection for tabId', tabs[i]);
+                delete panelConnections[tabs[i]];
                 break;
             }
         }
@@ -85,4 +85,4 @@ chrome.webNavigation.onCommitted.addListener(function (data) {
     }
 });
 
-console.log('in background.js: stop executing')
+console.log('in background.js: stop executing');

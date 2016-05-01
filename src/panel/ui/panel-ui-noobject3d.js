@@ -1,4 +1,4 @@
-var PanelWin3js = PanelWin3js || {}
+var PanelWin3js = PanelWin3js || {};
 
 /**
  * Handle panel for object3d
@@ -7,7 +7,7 @@ var PanelWin3js = PanelWin3js || {}
  */
 PanelWin3js.PanelNoObject3D = function () {
 
-    var container = new UI.Panel()
+    var container = new UI.Panel();
     container.dom.style.textAlign = 'center';
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -21,16 +21,16 @@ PanelWin3js.PanelNoObject3D = function () {
         }
 
         container.setDisplay('none');
-    })
+    });
 
     //////////////////////////////////////////////////////////////////////////////////
     //		Comments
     //////////////////////////////////////////////////////////////////////////////////
-    var text = new UI.Text().setColor('#ccc').setValue('NO OBJECT3D')
-    text.dom.style.fontSize = '2em'
-    text.dom.style.paddingTop = '1em'
+    var text = new UI.Text().setColor('#ccc').setValue('NO OBJECT3D');
+    text.dom.style.fontSize = '2em';
+    text.dom.style.paddingTop = '1em';
     text.dom.style.width = '100%';
-    container.add(text)
+    container.add(text);
 
     return container
 };

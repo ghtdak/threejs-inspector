@@ -1,6 +1,6 @@
-console.log('INSPECTING devtool page')
+console.log('INSPECTING devtool page');
 
-console.log('in devtools.js: devtools.js execution started. tabId', chrome.devtools.inspectedWindow.tabId)
+console.log('in devtools.js: devtools.js execution started. tabId', chrome.devtools.inspectedWindow.tabId);
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -39,4 +39,4 @@ function initPanel() {
 //////////////////////////////////////////////////////////////////////////////////
 //                Comments
 //////////////////////////////////////////////////////////////////////////////////
-console.log('in devtools.js: devtools.js execution completed')        
+console.log('in devtools.js: devtools.js execution completed');        

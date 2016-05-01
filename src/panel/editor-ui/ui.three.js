@@ -70,7 +70,7 @@ UI.Texture0 = function () {
 
         }
 
-    }
+    };
 
     this.dom = dom;
     this.texture = null;

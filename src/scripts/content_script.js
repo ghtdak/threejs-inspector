@@ -1,4 +1,4 @@
-console.log('in content_script.js: start running')
+console.log('in content_script.js: start running');
 
 //////////////////////////////////////////////////////////////////////////////////
 //		to receive message from injected_script
@@ -13,14 +13,14 @@ window.addEventListener('message', function (event) {
     // console.log('receiving window.message')
 
     // check the message
-    if (typeof message !== 'object') return
-    if (message === null) return
+    if (typeof message !== 'object') return;
+    if (message === null) return;
 
     // check the message.source
-    if (message.source !== 'threejs-extension-inspected-window') return
+    if (message.source !== 'threejs-extension-inspected-window') return;
 
     // remove the magic 'message.source'
-    delete message.source
+    delete message.source;
 
     // console.log('in content_script.js: receiving window.message for background page of three.js extension', message)
 
@@ -32,4 +32,4 @@ window.addEventListener('message', function (event) {
 //////////////////////////////////////////////////////////////////////////////////
 //		Comments
 //////////////////////////////////////////////////////////////////////////////////
-console.log('in content_script.js: end running')
+console.log('in content_script.js: end running');

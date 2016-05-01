@@ -18,26 +18,26 @@ function TreeViewItem(label, id) {
     // create the domElement
     this.liElement = document.createElement('li');
 
-    var containerDiv = document.createElement('div')
-    containerDiv.classList.add('container')
-    this.liElement.appendChild(containerDiv)
+    var containerDiv = document.createElement('div');
+    containerDiv.classList.add('container');
+    this.liElement.appendChild(containerDiv);
 
     //////////////////////////////////////////////////////////////////////////////////
     //		Comments
     //////////////////////////////////////////////////////////////////////////////////
-    var collapseIcon = document.createElement('i')
-    collapseIcon.setAttribute('title', 'Toggle to collapse/expand tree')
+    var collapseIcon = document.createElement('i');
+    collapseIcon.setAttribute('title', 'Toggle to collapse/expand tree');
     containerDiv.appendChild(collapseIcon);
-    this._updateCollapseIcon()
+    this._updateCollapseIcon();
     collapseIcon.addEventListener('click', function (event) {
-        var hasChildren = this.liElement.querySelector('ul li') ? true : false
-        if (hasChildren === false)    return
+        var hasChildren = this.liElement.querySelector('ul li') ? true : false;
+        if (hasChildren === false)    return;
 
-        this._toggleCollapse()
+        this._toggleCollapse();
 
-        event.preventDefault()
+        event.preventDefault();
         event.stopPropagation()
-    }.bind(this))
+    }.bind(this));
 
     // add label
     var labelElement = document.createElement('p');
@@ -46,13 +46,13 @@ function TreeViewItem(label, id) {
 
     ;
     (function () {
-        var visibilityIcon = document.createElement('i')
-        visibilityIcon.setAttribute('title', 'Toggle visibility of this object')
-        visibilityIcon.classList.add('fa')
-        visibilityIcon.classList.add('fa-eye')
-        visibilityIcon.style.float = 'right'
-        visibilityIcon.style.paddingTop = '0.3em'
-        containerDiv.appendChild(visibilityIcon)
+        var visibilityIcon = document.createElement('i');
+        visibilityIcon.setAttribute('title', 'Toggle visibility of this object');
+        visibilityIcon.classList.add('fa');
+        visibilityIcon.classList.add('fa-eye');
+        visibilityIcon.style.float = 'right';
+        visibilityIcon.style.paddingTop = '0.3em';
+        containerDiv.appendChild(visibilityIcon);
 
         visibilityIcon.addEventListener('click', function (event) {
             // notify the selection
@@ -65,13 +65,13 @@ function TreeViewItem(label, id) {
 
     ;
     (function () {
-        var exportIcon = document.createElement('i')
-        exportIcon.setAttribute('title', 'Export this object in console')
-        exportIcon.classList.add('fa')
-        exportIcon.classList.add('fa-share')
-        exportIcon.style.float = 'right'
-        exportIcon.style.paddingTop = '0.3em'
-        containerDiv.appendChild(exportIcon)
+        var exportIcon = document.createElement('i');
+        exportIcon.setAttribute('title', 'Export this object in console');
+        exportIcon.classList.add('fa');
+        exportIcon.classList.add('fa-share');
+        exportIcon.style.float = 'right';
+        exportIcon.style.paddingTop = '0.3em';
+        containerDiv.appendChild(exportIcon);
 
         exportIcon.addEventListener('click', function (event) {
             // notify the selection
@@ -80,7 +80,7 @@ function TreeViewItem(label, id) {
             // event.preventDefault();
             event.stopPropagation()
         }.bind(this));
-    }.bind(this))()
+    }.bind(this))();
 
 
     // create the list for the children
@@ -103,7 +103,7 @@ function TreeViewItem(label, id) {
 
     // if dblclick on container, then toggle collapse
     containerDiv.addEventListener('dblclick', function (event) {
-        this._toggleCollapse()
+        this._toggleCollapse();
 
         // event.preventDefault();
         event.stopPropagation()
@@ -112,18 +112,18 @@ function TreeViewItem(label, id) {
 
 TreeViewItem.prototype.createRootNode = function () {
     this.ulDomElement = document.createElement('ul');
-}
+};
 
 TreeViewItem.prototype._toggleCollapse = function () {
 
     this.liElement.classList.toggle('collapsed');
 
     this._updateCollapseIcon()
-}
+};
 
 TreeViewItem.prototype.collapseAll = function () {
-    var isCollapsed = this.liElement.classList.contains('collapsed')
-    var hasChildren = this.liElement.querySelector('ul li') ? true : false
+    var isCollapsed = this.liElement.classList.contains('collapsed');
+    var hasChildren = this.liElement.querySelector('ul li') ? true : false;
 
     if (isCollapsed === false && hasChildren === true) {
         this.liElement.classList.add('collapsed');
@@ -132,11 +132,11 @@ TreeViewItem.prototype.collapseAll = function () {
     this.children.forEach(function (child) {
         child.collapseAll()
     })
-}
+};
 
 TreeViewItem.prototype.expandAll = function () {
-    var isCollapsed = this.liElement.classList.contains('collapsed')
-    var hasChildren = this.liElement.querySelector('ul li') ? true : false
+    var isCollapsed = this.liElement.classList.contains('collapsed');
+    var hasChildren = this.liElement.querySelector('ul li') ? true : false;
 
     if (isCollapsed === true && hasChildren === true) {
         this.liElement.classList.remove('collapsed');
@@ -145,14 +145,14 @@ TreeViewItem.prototype.expandAll = function () {
     this.children.forEach(function (child) {
         child.expandAll()
     })
-}
+};
 
 TreeViewItem.prototype._updateCollapseIcon = function () {
-    var isCollapsed = this.liElement.classList.contains('collapsed')
-    var hasChildren = this.liElement.querySelector('ul li') ? true : false
+    var isCollapsed = this.liElement.classList.contains('collapsed');
+    var hasChildren = this.liElement.querySelector('ul li') ? true : false;
 
     // update collapse-icon
-    var collapseIcon = this.liElement.querySelector('i')
+    var collapseIcon = this.liElement.querySelector('i');
 
     if (hasChildren === false) {
         collapseIcon.className = 'fa fa-minus-square-o'
@@ -161,7 +161,7 @@ TreeViewItem.prototype._updateCollapseIcon = function () {
     } else {
         collapseIcon.className = 'fa fa-minus-square'
     }
-}
+};
 //////////////////////////////////////////////////////////////////////////////////
 //		Comments
 //////////////////////////////////////////////////////////////////////////////////
@@ -173,9 +173,9 @@ TreeViewItem.prototype._updateCollapseIcon = function () {
  */
 TreeViewItem.prototype.appendChild = function (childItem) {
 
-    if (childItem.parentItem === this)    return
+    if (childItem.parentItem === this)    return;
 
-    childItem.detach()
+    childItem.detach();
 
     childItem.treeView = this.treeView;
     childItem.parentItem = this;
@@ -189,7 +189,7 @@ TreeViewItem.prototype.appendChild = function (childItem) {
     this.ulDomElement.appendChild(childItem.liElement);
 
     this._updateCollapseIcon()
-}
+};
 
 /**
  * remove a child TreeViewItem
@@ -215,10 +215,10 @@ TreeViewItem.prototype.removeChild = function (childItem) {
     this.ulDomElement.removeChild(childItem.liElement);
 
     this._updateCollapseIcon()
-}
+};
 
 TreeViewItem.prototype.detach = function () {
-    if (this.parentItem === null)    return
+    if (this.parentItem === null)    return;
 
     this.parentItem.removeChild(this);
 

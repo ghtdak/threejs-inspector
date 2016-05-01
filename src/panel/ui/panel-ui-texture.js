@@ -1,4 +1,4 @@
-var PanelWin3js = PanelWin3js || {}
+var PanelWin3js = PanelWin3js || {};
 
 /**
  * Handle panel for object3d
@@ -6,12 +6,12 @@ var PanelWin3js = PanelWin3js || {}
  * @constructor
  */
 PanelWin3js.PanelTexture = function (propertyPrefix) {
-    var editor = PanelWin3js.editor
+    var editor = PanelWin3js.editor;
 
-    var signals = editor.signals
+    var signals = editor.signals;
 
-    var container = new UI.Panel()
-    var _this = container
+    var container = new UI.Panel();
+    var _this = container;
 
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -21,11 +21,11 @@ PanelWin3js.PanelTexture = function (propertyPrefix) {
     var textureRow = new UI.TextureRow().setLabel('Texture').onChange(function () {
         var textureJson = textureRow.getValue();
         update(textureJson)
-    })
-    textureRow.setPadding('0px')
+    });
+    textureRow.setPadding('0px');
     _this.add(textureRow);
 
-    _this.textureRow = textureRow
+    _this.textureRow = textureRow;
 
     //////////////////////////////////////////////////////////////////////////////////
     //		popupMenu
@@ -34,22 +34,22 @@ PanelWin3js.PanelTexture = function (propertyPrefix) {
         '':                '--- Options ---',
         'openInTab':       'Open in Tab',
         'exportInConsole': 'Export in Console',
-    }, onPopupMenuChange)
-    textureRow.typeRow.add(popupMenu)
+    }, onPopupMenuChange);
+    textureRow.typeRow.add(popupMenu);
 
     function onPopupMenuChange(value) {
         if (value === 'openInTab') {
-            var url = textureRow.uiTexture.getValue()
+            var url = textureRow.uiTexture.getValue();
             window.open(url, '_blank');
             window.focus();
             return
         } else if (value === 'exportInConsole') {
             PanelWin3js.functionOnObject3d(function (object3d, propertyPrefix) {
-                var texture = eval('object3d.' + propertyPrefix)
-                window.$texture = texture
-                console.log('three.js inspector: Material exported as $texture')
+                var texture = eval('object3d.' + propertyPrefix);
+                window.$texture = texture;
+                console.log('three.js inspector: Material exported as $texture');
                 console.dir($texture)
-            }, [propertyPrefix])
+            }, [propertyPrefix]);
             return
         } else {
             console.assert(false)
@@ -63,7 +63,7 @@ PanelWin3js.PanelTexture = function (propertyPrefix) {
 
     _this.updateUI = function (textureJson) {
         _this.textureRow.updateUI(textureJson)
-    }
+    };
 
     //////////////////////////////////////////////////////////////////////////////////
     //		comments
@@ -72,17 +72,17 @@ PanelWin3js.PanelTexture = function (propertyPrefix) {
     function update(textureJson) {
         PanelWin3js.functionOnObject3d(function (object3d, propertyPrefix, textureJson) {
             // console.log('update texture', 'object3d.'+propertyPrefix)
-            var texture = eval('object3d.' + propertyPrefix)
+            var texture = eval('object3d.' + propertyPrefix);
 
-            if (textureJson.uuid !== undefined)        texture.uuid = textureJson.uuid
-            if (textureJson.name !== undefined)        texture.name = textureJson.name
-            if (textureJson.anisotropy !== undefined)    texture.anisotropy = textureJson.anisotropy
+            if (textureJson.uuid !== undefined)        texture.uuid = textureJson.uuid;
+            if (textureJson.name !== undefined)        texture.name = textureJson.name;
+            if (textureJson.anisotropy !== undefined)    texture.anisotropy = textureJson.anisotropy;
 
-            if (textureJson.wrapS !== undefined)    texture.wrapS = textureJson.wrapS
-            if (textureJson.wrapT !== undefined)    texture.wrapT = textureJson.wrapT
+            if (textureJson.wrapS !== undefined)    texture.wrapS = textureJson.wrapS;
+            if (textureJson.wrapT !== undefined)    texture.wrapT = textureJson.wrapT;
 
-            if (textureJson.repeat !== undefined)    texture.repeat.copy(textureJson.repeat)
-            if (textureJson.offset !== undefined)    texture.offset.copy(textureJson.offset)
+            if (textureJson.repeat !== undefined)    texture.repeat.copy(textureJson.repeat);
+            if (textureJson.offset !== undefined)    texture.offset.copy(textureJson.offset);
 
             if (textureJson.sourceFile !== texture.sourceFile) {
                 var loader = new THREE.ImageLoader();

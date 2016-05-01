@@ -1,4 +1,4 @@
-var PanelWin3js = PanelWin3js || {}
+var PanelWin3js = PanelWin3js || {};
 
 /**
  * Handle panel for object3d
@@ -6,19 +6,19 @@ var PanelWin3js = PanelWin3js || {}
  * @constructor
  */
 PanelWin3js.PanelMaterialShader = function (faceMaterialIndex) {
-    var editor = PanelWin3js.editor
-    var signals = editor.signals
+    var editor = PanelWin3js.editor;
+    var signals = editor.signals;
 
-    var container = new UI.Panel()
+    var container = new UI.Panel();
 
     //////////////////////////////////////////////////////////////////////////////////
     //		handle tab-geometry
     //////////////////////////////////////////////////////////////////////////////////
 
-    container.add(new UI.HorizontalRule())
+    container.add(new UI.HorizontalRule());
 
-    var typeRow = new UI.TextRow()
-    typeRow.setLabel('Uniforms')
+    var typeRow = new UI.TextRow();
+    typeRow.setLabel('Uniforms');
     container.add(typeRow);
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -28,12 +28,12 @@ PanelWin3js.PanelMaterialShader = function (faceMaterialIndex) {
         '':                   '--- Options ---',
         'viewVertexShader':   'View vertexShader',
         'viewFragmentShader': 'View fragmentShader',
-    }, onPopupMenuChange)
-    typeRow.add(popupMenu)
+    }, onPopupMenuChange);
+    typeRow.add(popupMenu);
 
     function onPopupMenuChange(value) {
-        var material = faceMaterialIndex === -1 ? editor.selected.material : editor.selected.material.materials[faceMaterialIndex]
-        var injectFunction = InspectDevTools.functionOnObject3d
+        var material = faceMaterialIndex === -1 ? editor.selected.material : editor.selected.material.materials[faceMaterialIndex];
+        var injectFunction = InspectDevTools.functionOnObject3d;
 
 
         if (value === 'viewVertexShader') {
@@ -68,70 +68,70 @@ PanelWin3js.PanelMaterialShader = function (faceMaterialIndex) {
     //////////////////////////////////////////////////////////////////////////////////
 
     function updateUI(faceMaterialIndex) {
-        var material = faceMaterialIndex === -1 ? editor.selected.material : editor.selected.material.materials[faceMaterialIndex]
-        var propertyPrefix = faceMaterialIndex === -1 ? 'material' : 'material.materials[' + faceMaterialIndex + ']'
+        var material = faceMaterialIndex === -1 ? editor.selected.material : editor.selected.material.materials[faceMaterialIndex];
+        var propertyPrefix = faceMaterialIndex === -1 ? 'material' : 'material.materials[' + faceMaterialIndex + ']';
 
         var injectProperty = InspectDevTools.propertyOnObject3d;
-        var injectFunction = InspectDevTools.functionOnObject3d
+        var injectFunction = InspectDevTools.functionOnObject3d;
 
         // typeRow.updateUI( 'Uniforms' )
 
-        console.assert(material.fragmentShader)
-        console.assert(material.vertexShader)
+        console.assert(material.fragmentShader);
+        console.assert(material.vertexShader);
 
         //////////////////////////////////////////////////////////////////////////////////
         //		Create one row per uniforms
         //////////////////////////////////////////////////////////////////////////////////
         if (material.uniforms !== undefined) {
             Object.keys(material.uniforms).forEach(function (name) {
-                var data = material.uniforms[name]
+                var data = material.uniforms[name];
                 // console.log('materialShader', faceMaterialIndex)
                 // console.dir(data)
                 if (data.type === 'f') {
-                    var numberRow = new UI.NumberRow()
-                    numberRow.setLabel(name).setValue(data.value)
+                    var numberRow = new UI.NumberRow();
+                    numberRow.setLabel(name).setValue(data.value);
                     container.add(numberRow);
                     numberRow.onChange(function () {
                         injectProperty(propertyPrefix + '.uniforms.' + name + '.value', numberRow.getValue())
                     })
                 } else if (data.type === 'i') {
-                    var numberRow = new UI.NumberRow()
-                    numberRow.value.setPrecision(0)
-                    numberRow.setLabel(name).setValue(data.value)
+                    var numberRow = new UI.NumberRow();
+                    numberRow.value.setPrecision(0);
+                    numberRow.setLabel(name).setValue(data.value);
                     container.add(numberRow);
                     numberRow.onChange(function () {
                         injectProperty(propertyPrefix + '.uniforms.' + name + '.value', numberRow.getValue())
                     })
                 } else if (data.type === 'v2') {
-                    var vector2Row = new UI.Vector2Row()
-                    vector2Row.setLabel(name).updateUI(data.value)
+                    var vector2Row = new UI.Vector2Row();
+                    vector2Row.setLabel(name).updateUI(data.value);
                     container.add(vector2Row);
                     vector2Row.onChange(function () {
-                        injectProperty(propertyPrefix + '.uniforms.' + name + '.value.x', vector2Row.valueX.getValue())
+                        injectProperty(propertyPrefix + '.uniforms.' + name + '.value.x', vector2Row.valueX.getValue());
                         injectProperty(propertyPrefix + '.uniforms.' + name + '.value.y', vector2Row.valueY.getValue())
                     })
                 } else if (data.type === 'v3') {
-                    var vector3Row = new UI.Vector3Row()
-                    vector3Row.setLabel(name).updateUI(data.value)
+                    var vector3Row = new UI.Vector3Row();
+                    vector3Row.setLabel(name).updateUI(data.value);
                     container.add(vector3Row);
                     vector3Row.onChange(function () {
-                        injectProperty(propertyPrefix + '.uniforms.' + name + '.value.x', vector3Row.valueX.getValue())
-                        injectProperty(propertyPrefix + '.uniforms.' + name + '.value.y', vector3Row.valueY.getValue())
+                        injectProperty(propertyPrefix + '.uniforms.' + name + '.value.x', vector3Row.valueX.getValue());
+                        injectProperty(propertyPrefix + '.uniforms.' + name + '.value.y', vector3Row.valueY.getValue());
                         injectProperty(propertyPrefix + '.uniforms.' + name + '.value.z', vector3Row.valueZ.getValue())
                     })
                 } else if (data.type === 'c') {
-                    var colorRow = new UI.ColorRow()
-                    colorRow.setLabel(name).updateUI(data.value)
-                    container.add(colorRow)
+                    var colorRow = new UI.ColorRow();
+                    colorRow.setLabel(name).updateUI(data.value);
+                    container.add(colorRow);
                     colorRow.onChange(function () {
                         injectFunction(function (object3d, colorHexValue, uniformName, faceMaterialIndex) {
-                            var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex]
+                            var material = faceMaterialIndex === -1 ? object3d.material : object3d.material.materials[faceMaterialIndex];
                             material.uniforms[uniformName].value.set(colorHexValue)
                         }, [colorRow.value.getHexValue(), name, faceMaterialIndex]);
                     })
                 } else if (data.type === 't') {
-                    var mapRow = new PanelTexture(propertyPrefix + '.uniforms.' + name + '.value')
-                    mapRow.textureRow.setLabel(name)
+                    var mapRow = new PanelTexture(propertyPrefix + '.uniforms.' + name + '.value');
+                    mapRow.textureRow.setLabel(name);
                     container.add(mapRow);
                     mapRow.updateUI(data.value)
                 } else {
@@ -145,7 +145,7 @@ PanelWin3js.PanelMaterialShader = function (faceMaterialIndex) {
     //		Comments
     //////////////////////////////////////////////////////////////////////////////////
 
-    updateUI(faceMaterialIndex)
+    updateUI(faceMaterialIndex);
 
     return container
 };

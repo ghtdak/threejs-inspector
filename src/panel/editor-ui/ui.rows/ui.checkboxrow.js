@@ -7,14 +7,14 @@ UI.CheckboxRow = function () {
 
     UI.Panel.call(this);
 
-    var label = new UI.Text('').setWidth('90px')
+    var label = new UI.Text('').setWidth('90px');
     var value = new UI.Checkbox().onChange(update);
 
     // export ui fields
     this.label = label;
     this.value = value;
     // build the container	
-    var container = this
+    var container = this;
     container.add(label);
     container.add(value);
 
@@ -33,28 +33,28 @@ UI.CheckboxRow = function () {
         callback && callback()
     }
 
-    var callback = null
+    var callback = null;
     this.onChange = function (value) {
-        callback = value
+        callback = value;
         return this
-    }
+    };
 
     //////////////////////////////////////////////////////////////////////////////////
     //		handle label
     //////////////////////////////////////////////////////////////////////////////////
     this.setLabel = function (value) {
-        label.setValue(value)
+        label.setValue(value);
         return this
-    }
+    };
 
     this.setValue = function (newValue) {
-        value.setValue(newValue)
+        value.setValue(newValue);
         return this
-    }
+    };
 
     this.getValue = function () {
         return value.getValue()
-    }
+    };
     //////////////////////////////////////////////////////////////////////////////////
     //		honor .update and .updateUI api
     //////////////////////////////////////////////////////////////////////////////////
@@ -66,11 +66,11 @@ UI.CheckboxRow = function () {
      * @param  {String} property - the property to modify
      */
     this.update = function (scope, property) {
-        console.assert(scope !== undefined)
-        console.assert(property !== undefined)
-        if (scope[property] === undefined)    return
+        console.assert(scope !== undefined);
+        console.assert(property !== undefined);
+        if (scope[property] === undefined)    return;
         scope[property] = value.getValue()
-    }
+    };
 
     /**
      * update the ui
@@ -79,8 +79,8 @@ UI.CheckboxRow = function () {
      */
     this.updateUI = function (newValue) {
         // console.assert(newValue === undefined || newValue instanceof Boolean)
-        container.setDisplay(newValue !== undefined ? '' : 'none')
+        container.setDisplay(newValue !== undefined ? '' : 'none');
         value.setValue(newValue);
     }
-}
+};
 UI.CheckboxRow.prototype = Object.create(UI.Panel.prototype);

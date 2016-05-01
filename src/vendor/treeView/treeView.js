@@ -26,13 +26,13 @@ TreeView.prototype.clearActive = function () {
     var activeElement = this.root.ulDomElement.querySelector('.active');
     if (activeElement) activeElement.classList.remove('active');
 
-}
+};
 
 /**
  * empty the treeView
  */
 TreeView.prototype.empty = function () {
-    var ulDomElement = this.root.ulDomElement
+    var ulDomElement = this.root.ulDomElement;
     while (ulDomElement.firstChild) {
         ulDomElement.removeChild(ulDomElement.firstChild);
     }
@@ -47,7 +47,7 @@ TreeView.prototype.getRoot = function () {
 
     return this.root;
 
-}
+};
 
 // TreeView.prototype.render = function() {
 // }
@@ -57,18 +57,18 @@ TreeView.prototype.getRoot = function () {
  * @param {String|Null} uuid - the object3d selected
  */
 TreeView.prototype.onSelect = function (uuid) {
-}
+};
 
 /**
  * function notified when an item toggleVisibility is click
  * @param {String} uuid - the object3d selected
  */
 TreeView.prototype.onToggleVisibility = function (uuid) {
-}
+};
 
 /**
  * function notified when an item toggleVisibility is click
  * @param {String} uuid - the object3d selected
  */
 TreeView.prototype.onExport = function (uuid) {
-}
+};

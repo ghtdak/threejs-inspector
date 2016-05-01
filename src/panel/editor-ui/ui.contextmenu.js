@@ -14,20 +14,20 @@ UI.ContextMenu = function (options, domElement, onClick) {
     //		Build Menu
     //////////////////////////////////////////////////////////////////////////////////
 
-    var menuElement = document.createElement('div')
-    menuElement.style.display = 'none'
-    menuElement.classList.add('contextMenu')
+    var menuElement = document.createElement('div');
+    menuElement.style.display = 'none';
+    menuElement.classList.add('contextMenu');
 
     this.dom = menuElement;
 
-    var ulElement = document.createElement('ul')
-    menuElement.appendChild(ulElement)
+    var ulElement = document.createElement('ul');
+    menuElement.appendChild(ulElement);
     Object.keys(options).forEach(function (action) {
-        var liElement = document.createElement('li')
-        ulElement.appendChild(liElement)
-        liElement.innerHTML = options[action]
+        var liElement = document.createElement('li');
+        ulElement.appendChild(liElement);
+        liElement.innerHTML = options[action];
         liElement.dataset.action = action
-    })
+    });
 
     //////////////////////////////////////////////////////////////////////////////////
     //		Bind events to make it appear/disappear
@@ -39,8 +39,8 @@ UI.ContextMenu = function (options, domElement, onClick) {
         // if not the right mouse button, return now
         if (event.button !== 2)    return;
         // update onMouseDownPosition
-        onMouseDownX = event.clientX
-        onMouseDownY = event.clientY
+        onMouseDownX = event.clientX;
+        onMouseDownY = event.clientY;
         // bind mouseup
         domElement.addEventListener('mouseup', onMouseUp);
     }
@@ -50,18 +50,18 @@ UI.ContextMenu = function (options, domElement, onClick) {
         if (event.button !== 2)    return;
 
         // test if the button moved too much to be considered a click
-        var deltaX = event.clientX - onMouseDownX
-        var deltaY = event.clientY - onMouseDownY
-        var distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
-        if (distance > 0)      return
+        var deltaX = event.clientX - onMouseDownX;
+        var deltaY = event.clientY - onMouseDownY;
+        var distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        if (distance > 0)      return;
 
         // stop event propagation
-        event.stopPropagation()
+        event.stopPropagation();
 
         // compute the position of the contextMenu
         var boundingRect = domElement.getBoundingClientRect();
-        var positionX = event.clientX - boundingRect.left
-        var positionY = event.clientY - boundingRect.top
+        var positionX = event.clientX - boundingRect.left;
+        var positionY = event.clientY - boundingRect.top;
 
         // toggle menu visibility
         if (menuElement.style.display === 'block') {
@@ -93,14 +93,14 @@ UI.ContextMenu = function (options, domElement, onClick) {
             // hide menu
             menuElement.style.display = 'none';
             // get the action for this line
-            var action = liElement.dataset.action
+            var action = liElement.dataset.action;
             // handle event
-            onClick(action)
+            onClick(action);
             // stop the event here
-            event.preventDefault()
+            event.preventDefault();
             event.stopPropagation()
         })
     })
-}
+};
 
 UI.ContextMenu.prototype = Object.create(UI.Element.prototype);

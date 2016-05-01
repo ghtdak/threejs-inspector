@@ -17,12 +17,12 @@ UI.Texture = function () {
     canvas.style.border = '1px solid #888';
     dom.appendChild(canvas);
 
-    canvas.setAttribute('title', 'click to open in a new tab')
+    canvas.setAttribute('title', 'click to open in a new tab');
     canvas.addEventListener('click', function () {
-        var url = urlInput.value
+        var url = urlInput.value;
         window.open(url, '_blank');
         window.focus();
-    })
+    });
 
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -31,27 +31,27 @@ UI.Texture = function () {
     var urlInput = document.createElement('input');
     urlInput.style.width = '64px';
     urlInput.style.border = '1px solid #ccc';
-    urlInput.setAttribute('placeholder', 'Texture\'s url')
-    urlInput.setAttribute('title', 'the url of the texture')
+    urlInput.setAttribute('placeholder', 'Texture\'s url');
+    urlInput.setAttribute('title', 'the url of the texture');
     dom.appendChild(urlInput);
     urlInput.addEventListener('change', function () {
-        var url = urlInput.value
+        var url = urlInput.value;
         // THREE.ImageUtils.loadTexture(url, undefined, function(texture){
         // 
         // 	_this.setValue(texture)
         // 
         // 	if( _this.onChangeCallback )	_this.onChangeCallback();
         // })
-    })
+    });
 
     //////////////////////////////////////////////////////////////////////////////////
     //		Comment								//
     //////////////////////////////////////////////////////////////////////////////////
-    this._canvas = canvas
-    this._urlInput = urlInput
+    this._canvas = canvas;
+    this._urlInput = urlInput;
     this.dom = dom;
     this.texture = null;
-}
+};
 
 UI.Texture.prototype = Object.create(UI.Element.prototype);
 
@@ -64,7 +64,7 @@ UI.Texture.prototype.setValue = function (texture) {
     if (texture !== null) {
         var image = texture.image;
 
-        this._urlInput.value = image.src
+        this._urlInput.value = image.src;
 
         var canvas = this._canvas;
         var context = canvas.getContext('2d');
@@ -74,9 +74,9 @@ UI.Texture.prototype.setValue = function (texture) {
         this._urlInput.value = ''
     }
     this.texture = texture
-}
+};
 
 UI.Texture.prototype.onChange = function (callback) {
     this.onChangeCallback = callback;
     return this;
-}
+};

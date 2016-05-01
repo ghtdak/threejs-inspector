@@ -1,4 +1,4 @@
-console.log('in 50-injected_script-main.js: running start')
+console.log('in 50-injected_script-main.js: running start');
 
 // create a RafThrottler 
 InspectedWin3js.rafThrottler = new RafThrottler();
@@ -10,27 +10,27 @@ InspectedWin3js.rafThrottler = new RafThrottler();
 /**
  * object3DJson of the last selected object3d, if none selected then === null
  */
-InspectedWin3js.selected = null
+InspectedWin3js.selected = null;
 
 
 InspectedWin3js.selectUuid = function (uuid) {
-    console.log('in 50-injected_script-main.js: selectUuid', uuid)
+    console.log('in 50-injected_script-main.js: selectUuid', uuid);
 
     if (uuid === null) {
-        InspectedWin3js.selected = null
-        InspectedWin3js.postMessageToPanel('selectObject3D', null)
+        InspectedWin3js.selected = null;
+        InspectedWin3js.postMessageToPanel('selectObject3D', null);
         return
     }
 
-    var object3d = InspectedWin3js.getObjectByUuid(uuid)
-    var object3DJson = InspectedWin3js.object3dToJSON(object3d)
+    var object3d = InspectedWin3js.getObjectByUuid(uuid);
+    var object3DJson = InspectedWin3js.object3dToJSON(object3d);
     // update selected
-    InspectedWin3js.selected = object3DJson
+    InspectedWin3js.selected = object3DJson;
 
     // send message to the panel
     InspectedWin3js.postMessageToPanel('selectObject3D', object3DJson)
 
-}
+};
 
 //////////////////////////////////////////////////////////////////////////////////
 //                Comments
@@ -47,13 +47,13 @@ InspectedWin3js.postMessageToPanel = function (type, data) {
         data:   data,
         source: 'threejs-extension-inspected-window'
     }, '*');
-}
+};
 
 
 InspectedWin3js.getObjectByUuid = function (uuid) {
     // FIXME use scene as a global
     return scene.getObjectByProperty('uuid', uuid)
-}
+};
 
 //////////////////////////////////////////////////////////////////////////////////
 //                for treeview
@@ -68,14 +68,14 @@ InspectedWin3js.treeviewObject3dToJSON = function (object3d) {
         className:    InspectedWin3js.getThreeJSClassName(object3d),
         parentUuid:   object3d.parent ? object3d.parent.uuid : null,
         childrenUuid: []
-    }
+    };
     // populate json.childrenUuid
     object3d.children.forEach(function (child) {
         json.childrenUuid.push(child.uuid)
-    })
+    });
     // return the json
     return json
-}
+};
 
 /**
  * capture a scene and send it to inspector panel
@@ -85,13 +85,13 @@ InspectedWin3js.captureScene = function (scene) {
 
     // TODO it could be a long message with all object
     // - this would reduce message latency
-    InspectedWin3js.postMessageToPanel('clearObject3DTreeView')
+    InspectedWin3js.postMessageToPanel('clearObject3DTreeView');
 
     scene.traverse(function (object3d) {
-        var json = InspectedWin3js.treeviewObject3dToJSON(object3d)
+        var json = InspectedWin3js.treeviewObject3dToJSON(object3d);
         InspectedWin3js.postMessageToPanel('updateObject3DTreeView', json)
     })
-}
+};
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -99,7 +99,7 @@ InspectedWin3js.captureScene = function (scene) {
 ////////////////////////////////////////////////////////////////////////////////// 
 
 
-InspectedWin3js.extractThreeJSClassNames()
+InspectedWin3js.extractThreeJSClassNames();
 
-InspectedWin3js.postMessageToPanel('injectedInspectedWin')                      
+InspectedWin3js.postMessageToPanel('injectedInspectedWin');                      
 

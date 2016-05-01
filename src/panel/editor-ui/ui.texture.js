@@ -11,12 +11,12 @@ UI.Texture = function () {
     var input = document.createElement('input');
     input.type = 'file';
     input.addEventListener('change', function (event) {
-        var file = event.target.files[0]
+        var file = event.target.files[0];
         var reader = new FileReader();
         reader.addEventListener('load', function (event) {
-            var url = event.target.result
+            var url = event.target.result;
             console.log('url', url);
-            _this.setValue(url)
+            _this.setValue(url);
 
             if (_this.onChangeCallback)    _this.onChangeCallback();
 
@@ -35,10 +35,10 @@ UI.Texture = function () {
     canvas.style.border = '1px solid #888';
     dom.appendChild(canvas);
 
-    canvas.setAttribute('title', 'click to open in a new tab')
+    canvas.setAttribute('title', 'click to open in a new tab');
     canvas.addEventListener('click', function () {
         input.click();
-    })
+    });
 
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -47,23 +47,23 @@ UI.Texture = function () {
     var urlInput = document.createElement('input');
     urlInput.style.width = '110px';
     urlInput.style.border = '1px solid #ccc';
-    urlInput.setAttribute('placeholder', 'Texture\'s url')
-    urlInput.setAttribute('title', 'the url of the texture')
+    urlInput.setAttribute('placeholder', 'Texture\'s url');
+    urlInput.setAttribute('title', 'the url of the texture');
     dom.appendChild(urlInput);
     urlInput.addEventListener('change', function () {
-        var url = urlInput.value
-        _this.setValue(urlInput.value)
+        var url = urlInput.value;
+        _this.setValue(urlInput.value);
 
         if (_this.onChangeCallback)    _this.onChangeCallback();
-    })
+    });
 
     //////////////////////////////////////////////////////////////////////////////////
     //		Comment								//
     //////////////////////////////////////////////////////////////////////////////////
-    this._canvas = canvas
-    this._urlInput = urlInput
+    this._canvas = canvas;
+    this._urlInput = urlInput;
     this.dom = dom;
-}
+};
 
 UI.Texture.prototype = Object.create(UI.Element.prototype);
 
@@ -73,8 +73,8 @@ UI.Texture.prototype.getValue = function () {
 };
 
 UI.Texture.prototype.setValue = function (url) {
-    console.log('uiTexture.setValue', url)
-    this._urlInput.value = url
+    console.log('uiTexture.setValue', url);
+    this._urlInput.value = url;
     if (url) {
         var image = document.createElement('img');
         image.addEventListener('load', function (event) {
@@ -87,9 +87,9 @@ UI.Texture.prototype.setValue = function (url) {
 
         image.src = url
     }
-}
+};
 
 UI.Texture.prototype.onChange = function (callback) {
     this.onChangeCallback = callback;
     return this;
-}
+};

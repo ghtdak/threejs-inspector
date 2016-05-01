@@ -12,18 +12,18 @@ UI.Image = function (url) {
     UI.Element.call(this);
 
     var dom = document.createElement('img');
-    this.dom = dom
+    this.dom = dom;
 
     if (url !== undefined) {
         this.load(url)
     }
     return this
-}
+};
 
 UI.Image.prototype = Object.create(UI.Element.prototype);
 
 UI.Image.prototype.load = function (url) {
-    var image = this.dom
+    var image = this.dom;
     image.src = url
 };
 
@@ -36,17 +36,17 @@ UI.FontAwesomeIcon = function () {
     UI.Element.call(this);
 
     var dom = document.createElement('i');
-    this.dom = dom
+    this.dom = dom;
 
     dom.classList.add('fa');
     dom.classList.add('uiFontAwesomeButton');
 
-    dom.style.fontSize = '1.1em'
-    dom.style.padding = '0.1em'
+    dom.style.fontSize = '1.1em';
+    dom.style.padding = '0.1em';
     // dom.style.verticalAlign	= 'center'
 
     return this
-}
+};
 
 UI.FontAwesomeIcon.prototype = Object.create(UI.Element.prototype);
 

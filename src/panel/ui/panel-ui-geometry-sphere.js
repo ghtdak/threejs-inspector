@@ -1,4 +1,4 @@
-var PanelWin3js = PanelWin3js || {}
+var PanelWin3js = PanelWin3js || {};
 
 /**
  * Handle panel for object3d
@@ -6,33 +6,33 @@ var PanelWin3js = PanelWin3js || {}
  * @constructor
  */
 PanelWin3js.PanelGeometrySphere = function (object3d) {
-    var editor = PanelWin3js.editor
-    var signals = editor.signals
+    var editor = PanelWin3js.editor;
+    var signals = editor.signals;
 
-    var container = new UI.Panel()
+    var container = new UI.Panel();
 
     //////////////////////////////////////////////////////////////////////////////////
     //		handle tab-geometry
     //////////////////////////////////////////////////////////////////////////////////
 
-    container.add(new UI.HorizontalRule())
+    container.add(new UI.HorizontalRule());
 
-    var typeRow = new UI.TextRow()
-    typeRow.setLabel('Type')
+    var typeRow = new UI.TextRow();
+    typeRow.setLabel('Type');
     container.add(typeRow);
 
-    var radiusRow = new UI.NumberRow().onChange(updateWhole)
-    radiusRow.setLabel('Radius')
+    var radiusRow = new UI.NumberRow().onChange(updateWhole);
+    radiusRow.setLabel('Radius');
     container.add(radiusRow);
 
-    var widthSegmentsRow = new UI.NumberRow().onChange(updateWhole)
-    widthSegmentsRow.setLabel('Width Segments')
-    widthSegmentsRow.value.setPrecision(0).setStep(5).setRange(1, 1000)
+    var widthSegmentsRow = new UI.NumberRow().onChange(updateWhole);
+    widthSegmentsRow.setLabel('Width Segments');
+    widthSegmentsRow.value.setPrecision(0).setStep(5).setRange(1, 1000);
     container.add(widthSegmentsRow);
 
-    var heightSegmentsRow = new UI.NumberRow().onChange(updateWhole)
-    heightSegmentsRow.setLabel('Height Segments')
-    heightSegmentsRow.value.setPrecision(0).setStep(5).setRange(1, 1000)
+    var heightSegmentsRow = new UI.NumberRow().onChange(updateWhole);
+    heightSegmentsRow.setLabel('Height Segments');
+    heightSegmentsRow.value.setPrecision(0).setStep(5).setRange(1, 1000);
     container.add(heightSegmentsRow);
 
 
@@ -41,7 +41,7 @@ PanelWin3js.PanelGeometrySphere = function (object3d) {
     //////////////////////////////////////////////////////////////////////////////////
     function updateWhole() {
         var injectProperty = PanelWin3js.propertyOnObject3d;
-        var injectFunction = PanelWin3js.functionOnObject3d
+        var injectFunction = PanelWin3js.functionOnObject3d;
 
         // injectFunction
         injectFunction(function (object3d, radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength) {
@@ -65,22 +65,22 @@ PanelWin3js.PanelGeometrySphere = function (object3d) {
     //////////////////////////////////////////////////////////////////////////////////
 
     function updateUI(object3d) {
-        var geometry = object3d.geometry
+        var geometry = object3d.geometry;
 
-        console.assert(geometry.parameters)
+        console.assert(geometry.parameters);
 
         // set defaults values - may happen when it was undefined in constructor
-        if (geometry.parameters.widthSegments === undefined)    geometry.parameters.widthSegments = 8
-        if (geometry.parameters.heightSegments === undefined)    geometry.parameters.heightSegments = 8
+        if (geometry.parameters.widthSegments === undefined)    geometry.parameters.widthSegments = 8;
+        if (geometry.parameters.heightSegments === undefined)    geometry.parameters.heightSegments = 8;
 
-        typeRow.updateUI(geometry.sniffType)
+        typeRow.updateUI(geometry.sniffType);
 
-        radiusRow.updateUI(geometry.parameters.radius)
-        widthSegmentsRow.updateUI(geometry.parameters.widthSegments)
+        radiusRow.updateUI(geometry.parameters.radius);
+        widthSegmentsRow.updateUI(geometry.parameters.widthSegments);
         heightSegmentsRow.updateUI(geometry.parameters.heightSegments)
     }
 
-    updateUI(object3d)
+    updateUI(object3d);
 
     return container
 };
