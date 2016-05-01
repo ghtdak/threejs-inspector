@@ -74,7 +74,7 @@ UI.FoldableSelect = function () {
             nextIndex += direction
         }
 
-        
+
 
         /**
          * @param {Number} index - the index of the option to check
@@ -178,10 +178,8 @@ UI.FoldableSelect.prototype.getStateJson = function () {
  * @param {Object} state - the json object
  */
 UI.FoldableSelect.prototype.setStateJson = function (state) {
-    var foldableSelect = this;
-    // honor state.unfoldedIndexes
-    foldableSelect = this;
-    foldableSelect.optionElements.forEach(function (optionElement, index) {
+
+    this.optionElements.forEach(function (optionElement, index) {
         var isFoldable = optionElement.classList.contains('foldable');
         if (isFoldable === false)    return;
 
@@ -193,7 +191,7 @@ UI.FoldableSelect.prototype.setStateJson = function (state) {
         }
     });
     // honor the state.unfoldedIndexes
-    foldableSelect.setValue(state.selectedValue)
+    this.setValue(state.selectedValue)
 };
 
 ////////////////////////////////////////////////////////////////////////////////
